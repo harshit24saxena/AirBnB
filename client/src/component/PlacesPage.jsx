@@ -41,7 +41,7 @@ export default function PlacesPage() {
 {/* place.id in link is showing as undefined */}
           <div className="mt-4">      
             {places.length > 0 && places.map((place , index) => (
-              <Link to={'/account/places/'+ place.id} className='bg-gray-100 flex p-4 rounded-2xl gap-4 cursor-pointer' key = {index}>
+              <Link to={'/account/places/' + place.owner} className='bg-gray-100 flex p-4 rounded-2xl gap-4 cursor-pointer' key = {index}>
                 <div className='w-32 h-32 bg-gray-200 shrink-0' >
                   {place.photos.length > 0 && (
                     <img src={place.photos[0]} alt="" />
@@ -50,6 +50,7 @@ export default function PlacesPage() {
                 <div className="grow-0 shrink text-left">
                <h2 className='text-xl'>{place.title}</h2>
                <p className='text-sm mt-2'>{place.description}</p>
+               <p>{place.owner}</p>
                 </div>
               </Link>
             ))}

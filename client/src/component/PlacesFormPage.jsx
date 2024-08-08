@@ -6,7 +6,7 @@ import AccountNavPage from "./AccountNavPage";
 import { Navigate, useParams } from "react-router";
 
 export default function PlacesFormPage(){
-    const{id} = useParams();
+    const {id} = useParams();
     const [title, setTitle] = useState("");
     const [address, setAddress] = useState("");
     const [description, setDecription] = useState("");
@@ -22,7 +22,13 @@ export default function PlacesFormPage(){
       if(!id){
         return
       }
-      axios.get('/places/'+ id)
+      axios.get('/places/'+ id).then(res => {
+        const {data} = res;
+        console.log(data);
+        // setTitle(data.title)
+        // setAddress(data.address)
+        // setAddedPhotos(data.photos)
+      })
     },[id])
 
     function inputHeader(title) {

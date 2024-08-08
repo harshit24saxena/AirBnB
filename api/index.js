@@ -140,7 +140,6 @@ app.post('/places',(req,res)=>{
 
   const {title, address,description,addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo} = req.body
 
-// extraInfo value is not saving in database
   jwt.verify(token, jwtsecret, {}, async (err, user) => {
     if (err) throw err;
     const placeDoc = await place.create({
@@ -149,6 +148,14 @@ app.post('/places',(req,res)=>{
   });
   res.json(placeDoc)
   })
+})
+
+app.get('/places/:id',async(req,res) => {
+  const {id} = req.params;
+// database query not sending any response 
+// res.json is null
+    res.json(await place.findById(id))
+
 })
 
 app.listen(4000);
