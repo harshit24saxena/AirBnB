@@ -7,7 +7,7 @@ export default function Header() {
   const {user} = useContext(UserContext)
   return (
     <header className="flex justify-between py-4 px-20">
-      <Link to={'/account'}className="flex items-center gap-1">
+      <Link to={'/'}className="flex items-center gap-1">
         <svg
           className="w-10 h-8"
           enableBackground="new 0 0 1991.3 2143.2"

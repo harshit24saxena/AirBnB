@@ -126,7 +126,7 @@ app.post('/uploads',photosMiddleware.array('photos', 100), (req,res)=>{
   res.json(uploadedfiles)
 })
 
-app.get('/places', (req,res)=>{
+app.get('/Userplaces', (req,res)=>{
   const { token } = req.cookies;
   jwt.verify(token, jwtsecret, {}, async (err, user) => {
     const {id} = user;
@@ -149,13 +149,34 @@ app.post('/places',(req,res)=>{
   res.json(placeDoc)
   })
 })
-
+// using find with owner as option instead findById has to check any contradication that may occure
 app.get('/places/:id',async(req,res) => {
   const {id} = req.params;
-// database query not sending any response 
-// res.json is null
-    res.json(await place.findById(id))
+  
+  const placeData = await place.find({owner : id}).exec()
+  
+  res.json(placeData)
+  
+})
+// using find with owner as option instead findById has to check any contradication that may occure
+app.put('/places', (req,res)=>{
+  const {token} = req.cookies
+  const { id, title, address,description,addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo} = req.body
+  jwt.verify(token, jwtsecret, {}, async (err, user) =>{
+    const placeDoc = await place.find({owner : id}).exec()
+    console.log(placeDoc);
+    if(user.id === placeDoc[0].owner.toString()){
+      placeDoc[0].set({
+        title, address,photos:addedPhoto,description, addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo
+      })
+      await placeDoc[0].save();
+      res.json('ok')
+    }
+  })
+})
 
+app.get('/places', async(req,res)=>{
+  res.json(await place.find() )
 })
 
 app.listen(4000);

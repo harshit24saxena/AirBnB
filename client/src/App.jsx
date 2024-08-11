@@ -3,6 +3,7 @@ import axios from 'axios'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from './layout'
 
+import IndexPage from './component/IndexPage.jsx';
 import LoginPage from "./component/LoginPage.jsx";
 import RegisterPage from "./component/RegisterPage.jsx";
 import ProfilePage from "./component/ProfilePage.jsx";
@@ -18,6 +19,10 @@ function App() {
       path: "/",
       element:  <Layout />,
       children: [
+        {
+          path: "/",
+          element: <IndexPage />,
+        },
         {
           path: "login",
           element: <LoginPage />,

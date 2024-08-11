@@ -17,17 +17,21 @@ export default function PlacesFormPage(){
     const [perks, setPerks] = useState([]);
     const [addedPhoto, setAddedPhotos] = useState([]);
     const [redirect, setRedirect] = useState(false)
-
     useEffect(()=>{
       if(!id){
         return
       }
       axios.get('/places/'+ id).then(res => {
         const {data} = res;
-        console.log(data);
-        // setTitle(data.title)
-        // setAddress(data.address)
-        // setAddedPhotos(data.photos)
+        setTitle(data[0].title)
+        setAddress(data[0].address)
+        setAddedPhotos(data[0].photos)
+        setDecription(data[0].description)
+        setExtraInfo(data[0].extraInfo)
+        setCheckIn(data[0].checkIn)
+        setCheckOut(data[0].checkOut)
+        setPerks(data[0].perks)
+        setMaxGuests(data[0].maxGuests)
       })
     },[id])
 
@@ -46,16 +50,23 @@ export default function PlacesFormPage(){
         );
       }
       
-      async function addNewPlace(ev){
+      async function savePlace(ev){
         ev.preventDefault();
         const placeData = 
         {
           title, address, description,addedPhoto,extraInfo, checkIn, checkOut, perks, maxGuests, 
         }
-        
-    
-        await axios.post('/places', placeData)
-        setRedirect(true)
+        if(id){
+          // update
+          await axios.put('/places', {id, ...placeData})
+          setRedirect(true)
+
+        }else{
+          // new data
+          await axios.post('/places', placeData)
+          setRedirect(true)
+        }
+
       }
       if(redirect){
         return <Navigate to={'/account/places'} />
@@ -64,7 +75,7 @@ export default function PlacesFormPage(){
     return(
         <div>
         <AccountNavPage />  
-        <form onSubmit={addNewPlace} method="post" className="m-4" >
+        <form onSubmit={savePlace} method="post" className="m-4" >
           {preInput("title", "Title for your post")}
           <input
             type="text"
