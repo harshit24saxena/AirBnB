@@ -16,6 +16,7 @@ export default function PlacesFormPage(){
     const [maxGuests, setMaxGuests] = useState(1);
     const [perks, setPerks] = useState([]);
     const [addedPhoto, setAddedPhotos] = useState([]);
+    const [price ,setPrice] = useState(100)
     const [redirect, setRedirect] = useState(false)
     useEffect(()=>{
       if(!id){
@@ -23,15 +24,16 @@ export default function PlacesFormPage(){
       }
       axios.get('/places/'+ id).then(res => {
         const {data} = res;
-        setTitle(data[0].title)
-        setAddress(data[0].address)
-        setAddedPhotos(data[0].photos)
-        setDecription(data[0].description)
-        setExtraInfo(data[0].extraInfo)
-        setCheckIn(data[0].checkIn)
-        setCheckOut(data[0].checkOut)
-        setPerks(data[0].perks)
-        setMaxGuests(data[0].maxGuests)
+        setTitle(data.title)
+        setAddress(data.address)
+        setAddedPhotos(data.photos)
+        setDecription(data.description)
+        setExtraInfo(data.extraInfo)
+        setCheckIn(data.checkIn)
+        setCheckOut(data.checkOut)
+        setPerks(data.perks)
+        setMaxGuests(data.maxGuests)
+        setPrice(data.price)
       })
     },[id])
 
@@ -54,7 +56,7 @@ export default function PlacesFormPage(){
         ev.preventDefault();
         const placeData = 
         {
-          title, address, description,addedPhoto,extraInfo, checkIn, checkOut, perks, maxGuests, 
+          title, address, description,addedPhoto,extraInfo, checkIn, checkOut, perks, maxGuests,price 
         }
         if(id){
           // update
@@ -114,7 +116,7 @@ export default function PlacesFormPage(){
             "Check in & out time and Guests",
             " Times for check in an check out"
           )}
-          <div className="grid sm:grid-cols-3 gap-2">
+          <div className="grid sm:grid-cols-3 md:grid-cols-4 gap-2">
             <div>
               <h3 className=" mt-2 -mb-1">Check In time</h3>
               <input
@@ -140,6 +142,15 @@ export default function PlacesFormPage(){
                 placeholder="2"
                 value={maxGuests}
                 onChange={(ev) => setMaxGuests(ev.target.value)}
+              />
+            </div>
+            <div>
+              <h3 className=" mt-2 -mb-1">Price per night</h3>
+              <input
+                type="number"
+                placeholder="100"
+                value={price}
+                onChange={(ev) => setPrice(ev.target.value)}
               />
             </div>
           </div>

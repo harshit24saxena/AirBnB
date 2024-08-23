@@ -25,9 +25,6 @@ app.use(
   })
 );
 
-app.get('/test', (req,res)=>{
-  res.json('connected')
-})
 
 mongoose.connect(process.env.mongo_URL);
 
@@ -131,6 +128,7 @@ app.get('/Userplaces', (req,res)=>{
   jwt.verify(token, jwtsecret, {}, async (err, user) => {
     const {id} = user;
     res.json(await place.find({owner:id}))
+
   })
 
 })
@@ -138,38 +136,36 @@ app.get('/Userplaces', (req,res)=>{
 app.post('/places',(req,res)=>{
   const { token } = req.cookies;
 
-  const {title, address,description,addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo} = req.body
+  const {title, address,description,addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo,price} = req.body
 
   jwt.verify(token, jwtsecret, {}, async (err, user) => {
     if (err) throw err;
     const placeDoc = await place.create({
       owner: user.id,
-      title, address,photos:addedPhoto,description, addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo
+      title, address,photos:addedPhoto,description, addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo,price
   });
   res.json(placeDoc)
   })
-})
-// using find with owner as option instead findById has to check any contradication that may occure
+}) 
+
 app.get('/places/:id',async(req,res) => {
   const {id} = req.params;
-  
-  const placeData = await place.find({owner : id}).exec()
-  
-  res.json(placeData)
-  
-})
-// using find with owner as option instead findById has to check any contradication that may occure
+  const placeData = await place.findById(id)
+  res.json((placeData));
+})   
+
 app.put('/places', (req,res)=>{
   const {token} = req.cookies
-  const { id, title, address,description,addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo} = req.body
+  const { 
+    id, title, address,description,addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo,price
+  } = req.body
   jwt.verify(token, jwtsecret, {}, async (err, user) =>{
-    const placeDoc = await place.find({owner : id}).exec()
-    console.log(placeDoc);
-    if(user.id === placeDoc[0].owner.toString()){
-      placeDoc[0].set({
-        title, address,photos:addedPhoto,description, addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo
+    const placeDoc = await place.findById(id)
+    if(user.id === placeDoc.owner.toString()){
+      placeDoc.set({
+        title, address,photos:addedPhoto,description, addedPhoto, checkIn, checkOut, perks, maxGuests, extraInfo,price
       })
-      await placeDoc[0].save();
+      await placeDoc.save();
       res.json('ok')
     }
   })

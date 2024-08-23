@@ -9,6 +9,7 @@ import RegisterPage from "./component/RegisterPage.jsx";
 import ProfilePage from "./component/ProfilePage.jsx";
 import PlacesPage from "./component/PlacesPage.jsx";
 import PlacesFormPage from "./component/PlacesFormPage.jsx";
+import PlaceDetailPage from './component/PlaceDetailPage.jsx';
 
 axios.defaults.baseURL='http://localhost:4000'
 axios.defaults.withCredentials = true
@@ -46,6 +47,10 @@ function App() {
         {
           path:'account/places/:id?',
           element: <PlacesFormPage />
+        },
+        {
+          path:'place/:id?',
+          element: <PlaceDetailPage />
         },
       ]
     },
