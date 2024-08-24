@@ -25,7 +25,7 @@ export default function PlaceDetailPage() {
       <div className="absolute inset-0 bg-black text-white min-h-screen">
         <div className="bg-black p-8 grid gap-4">
           <div>
-            <h2 className="text-2xl font-bold">Photos of {place.title}</h2>
+            <h2 className="text-2xl font-bold mr-48">Photos of {place.title}</h2>
             <button
               onClick={() => setShowAllPhotos(false)}
               className="fixed right-12 top-8 rounded-2xl bg-red-600 text-white shadow shadow-black"
@@ -49,7 +49,10 @@ export default function PlaceDetailPage() {
           {place?.photos?.length > 0 &&
             place.photos.map((photo, index) => (
               <div key={index}>
-                <img src={"http://localhost:4000/uploads/" + photo}></img>
+                <img
+                  onClick={() => setShowAllPhotos(true)}
+                  src={"http://localhost:4000/uploads/" + photo}
+                ></img>
               </div>
             ))}
         </div>
@@ -58,7 +61,7 @@ export default function PlaceDetailPage() {
   }
 
   return (
-    <div className="mt-4 bg-gray-100">
+    <div className="mt-4 bg-gray-100 -mx-8  px-8 pt-8">
       <h1 className="text-3xl">{place.title}</h1>
       <a
         className="underline flex gap-1 my-3 font-semibold"
@@ -93,7 +96,8 @@ export default function PlaceDetailPage() {
             {place.photos?.[0] && (
               <div>
                 <img
-                  className="aspect-square object-cover"
+                  onClick={() => setShowAllPhotos(true)}
+                  className="cursor-pointer aspect-square object-cover"
                   src={"http://localhost:4000/uploads/" + place.photos[0]}
                   alt=""
                 />
@@ -104,7 +108,8 @@ export default function PlaceDetailPage() {
           <div className="grid2">
             {place.photos?.[1] && (
               <img
-                className="aspect-square object-cover"
+                onClick={() => setShowAllPhotos(true)}
+                className="cursor-pointer aspect-square object-cover"
                 src={"http://localhost:4000/uploads/" + place.photos[1]}
                 alt=""
               />
@@ -112,7 +117,8 @@ export default function PlaceDetailPage() {
             {place.photos?.[2] && (
               <div className="overflow-hidden">
                 <img
-                  className="aspect-square object-cover relative top-2"
+                  onClick={() => setShowAllPhotos(true)}
+                  className="cursor-pointer aspect-square object-cover relative top-2"
                   src={"http://localhost:4000/uploads/" + place.photos[2]}
                   alt=""
                 />
@@ -128,21 +134,26 @@ export default function PlaceDetailPage() {
         </div>
 
         <div className="mt-8 gap-4 grid grid-cols-1 md:grid-cols-[2fr_1fr]">
-
           <div>
-          <div className="my-4">
-            <h2 className="font-semibold text-2xl">Description</h2>
-            {place.description}
-          </div>
+            <div className="my-4">
+              <h2 className="font-semibold text-2xl">Description</h2>
+              {place.description}
+            </div>
             Check In: {place.checkIn}
             <br />
             Check Out: {place.checkOut}
             <br />
             Max Guests: {place.maxGuests}
-            
           </div>
+          <BookingWidget place={place} />
+        </div>
+
+        <div className="bg-white -mx-8 p-8 border-t leading-5 mt-2 mb-4 ">
           <div>
-            <BookingWidget place={place} />
+            <h2 className="font-semibold text-2xl mt-4">Extra Info</h2>
+          </div>
+          <div className="text-sm text-gray-700 leadin-4 mt-1">
+            {place.extraInfo}
           </div>
         </div>
       </div>
