@@ -86,8 +86,8 @@ export default function PlaceDetailPage() {
         {place.address}
       </a>
 
-      <div className="relative">
-        <div className=" rounded-3xl overflow-hidden grid gap-2 grid-cols-[2fr_1fr]">
+      <div>
+        <div className=" rounded-3xl overflow-hidden grid gap-2 grid-cols-[2fr_1fr] relative">
           <div>
             {place.photos?.[0] && (
               <div>
@@ -124,6 +124,43 @@ export default function PlaceDetailPage() {
           >
             show more photos
           </button>
+        </div>
+        <div className="my-4">
+          <h2 className="font-semibold text-2xl">Description</h2>
+          {place.description}
+        </div>
+        <div className="grid grid-cols-2">
+          <div>
+            Check In: {place.checkIn}
+            <br />
+            Check Out: {place.checkOut}
+            <br />
+            Max Guests: {place.maxGuests}
+          </div>
+          <div>
+            <div className="rounded-2xl shadow p-4 bg-white text-center">
+              <div>Price: {place.price}</div>
+
+              <div className="border rounded-2xl">
+                <div className="px-4 py-3 ">
+                  <div className="flex">
+                    <label htmlFor="">Check In</label>
+                    <input type="date" />
+                  </div>
+                  <div className="px-4 py-3 border-t">
+                    <label htmlFor="">Check Out</label>
+                    <input type="date" />
+                  </div>
+                  <div className="px-4 py-3 border-t">
+                    <label htmlFor="">Max Guests</label>
+                    <input type="number" />
+                  </div>
+                  
+                </div>
+              </div>
+              <button className="primary mt-4">Book this place</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
