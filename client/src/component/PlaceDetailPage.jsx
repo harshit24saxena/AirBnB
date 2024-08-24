@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import BookingWidget from "./BookingWidget";
 
 export default function PlaceDetailPage() {
   const { id } = useParams();
@@ -125,41 +126,23 @@ export default function PlaceDetailPage() {
             show more photos
           </button>
         </div>
-        <div className="my-4">
-          <h2 className="font-semibold text-2xl">Description</h2>
-          {place.description}
-        </div>
-        <div className="grid grid-cols-2">
+
+        <div className="mt-8 gap-4 grid grid-cols-1 md:grid-cols-[2fr_1fr]">
+
           <div>
+          <div className="my-4">
+            <h2 className="font-semibold text-2xl">Description</h2>
+            {place.description}
+          </div>
             Check In: {place.checkIn}
             <br />
             Check Out: {place.checkOut}
             <br />
             Max Guests: {place.maxGuests}
+            
           </div>
           <div>
-            <div className="rounded-2xl shadow p-4 bg-white text-center">
-              <div>Price: {place.price}</div>
-
-              <div className="border rounded-2xl">
-                <div className="px-4 py-3 ">
-                  <div className="flex">
-                    <label htmlFor="">Check In</label>
-                    <input type="date" />
-                  </div>
-                  <div className="px-4 py-3 border-t">
-                    <label htmlFor="">Check Out</label>
-                    <input type="date" />
-                  </div>
-                  <div className="px-4 py-3 border-t">
-                    <label htmlFor="">Max Guests</label>
-                    <input type="number" />
-                  </div>
-                  
-                </div>
-              </div>
-              <button className="primary mt-4">Book this place</button>
-            </div>
+            <BookingWidget place={place} />
           </div>
         </div>
       </div>
