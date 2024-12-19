@@ -1,0 +1,43 @@
+{
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "tailwindcss": "^3.4.7"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2",
+    "image-downloader": "^4.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.2",
+    "multer": "^1.4.5-lts.1",
+    "node": "^22.12.0",
+    "npm": "^10.9.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "vite": "^6.0.3"
+  },
+  "name": "airbnb",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshit24saxena/AirBnB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harshit24saxena/AirBnB/issues"
+  },
+  "homepage": "https://github.com/harshit24saxena/AirBnB#readme",
+  "description": ""
+}

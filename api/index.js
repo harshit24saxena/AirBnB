@@ -56,7 +56,7 @@ app.post("/register", async (req, res) => {
 // Handling Post of LoginPage`
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-
+  
   const Doc = await User.findOne({ email });
 
   if (Doc) {
@@ -103,7 +103,7 @@ app.post("/logout", (req, res) => {
 app.post("/uploadbylink", async (req, res) => {
   const { URL } = req.body;
   const path = __dirname + "/uploads/";
-
+  
   const newName = "photo" + Date.now() + ".jpg";
 
   try {
@@ -195,6 +195,7 @@ app.put("/places", (req, res) => {
     extraInfo,
     price,
   } = req.body;
+
   jwt.verify(token, jwtsecret, {}, async (err, user) => {
     const placeDoc = await place.findById(id);
     if (user.id === placeDoc.owner.toString()) {
@@ -241,7 +242,6 @@ app.post("/booking", async (req, res) => {
 
 app.get("/booking", async (req, res) => {
   const userData = await getUserDataFromToken(req);
-  res.json(await Booking.find({ user: userData.id }));
-
+  console.log(await Booking.find({ user: userData.id }).populate('place'))
 });
 app.listen(4000);
