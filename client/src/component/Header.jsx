@@ -1,10 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../useContest";
+import axios from "axios";
 
 
 export default function Header() {
   const {user} = useContext(UserContext)
+  const [queryPlace, setQueryPlace]= useState('')
+  const [queryDays, setQueryDays]= useState('')
+  const [queryGuests, setQueryGuest]= useState('')
+  const queryData = [queryGuests, queryDays, queryPlace]
+  
+  function PlaceData(e){setQueryPlace(e.target.value)}
+  function DaysData(e){setQueryDays(e.target.value)}
+  function GuestsData(e){setQueryGuest(e.target.value)}
+  function queryInfo(){
+   axios.post('/queryInfo', queryData)
+   
+  }
+
   return (
     <header className="flex justify-between py-4 px-20">
       <Link to={'/'}className="flex items-center gap-1">
@@ -23,9 +37,9 @@ export default function Header() {
       </Link>
 
       <div className="flex gap-3 border-gray-400 border rounded-full px-4 py-2 items-center shadow-md ">
-        <div>Any where</div>
-        <div className="border-l border-gray-400 pl-2">Any weeks</div>
-        <div className="border-l border-gray-400 pl-2">Add guests</div>
+        <input type="text" placeholder="Any where" className="border-l border-gray-400 pl-2" value={queryPlace} onChange={PlaceData}></input>
+        <input type="text" placeholder="Any weeks" className="border-l border-gray-400 pl-2" value={queryDays} onChange={DaysData}></input>
+        <input type="text" placeholder="Add guests" className="border-l border-gray-400 pl-2" value={queryGuests} onChange={GuestsData}></input>
 
         <button className=" p-2 bg-primary text-white rounded-full">
           <svg
@@ -40,6 +54,7 @@ export default function Header() {
               strokeLinecap="round"
               strokeLinejoin="round"
               d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+             onClick={queryInfo}
             />
           </svg>
         </button>

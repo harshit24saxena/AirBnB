@@ -12,6 +12,7 @@ const User = require("./models/user");
 const place = require("./models/places");
 const Booking = require("./models/Booking");
 const fs = require("fs");
+const { log } = require("console");
 const ObjectId = require('mongoose').Types.ObjectId
 
 const bcryptSalt = bcrypt.genSaltSync(5);
@@ -244,4 +245,12 @@ app.get("/booking", async (req, res) => {
   const userData = await getUserDataFromToken(req);
   res.json(await Booking.find({ user: userData.id }).populate('place'))
 });
+
+// query data is not loging
+app.get('/queryInfo', (res,req)=>{
+  const queryData = req.body
+  console.log(queryData);
+  
+})
+
 app.listen(4000);
