@@ -18,7 +18,6 @@ export default function Header() {
       CheckOut: queryCheckOut,
       guests: queryGuests,
     };
-    console.log(typeof queryCheckIN);
     
     axios.post("/queryInfo", queryData);
     Navigate("./QueryPage");
