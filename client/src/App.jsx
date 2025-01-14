@@ -12,6 +12,7 @@ import PlacesFormPage from "./component/pages/PlacesFormPage.jsx";
 import PlaceDetailPage from './component/pages/PlaceDetailPage.jsx';
 import BookingsPage from './component/pages/BookingsPage.jsx'
 import BookingPage from './component/pages/BookingPage.jsx'
+import QueryPage from './component/pages/QueryPage.jsx'
 
 axios.defaults.baseURL='http://localhost:4000'
 axios.defaults.withCredentials = true
@@ -62,6 +63,10 @@ function App() {
           path:'/account/booking/:id',
           element: <BookingPage />
         },
+        {
+          path:'/QueryPage',
+          element:<QueryPage />
+        }
       ]
     },
   

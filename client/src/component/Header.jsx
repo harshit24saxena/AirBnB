@@ -1,27 +1,32 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../useContest";
 import axios from "axios";
 
-
 export default function Header() {
-  const {user} = useContext(UserContext)
-  const [queryPlace, setQueryPlace]= useState('')
-  const [queryDays, setQueryDays]= useState('')
-  const [queryGuests, setQueryGuest]= useState('')
-  const queryData = [queryGuests, queryDays, queryPlace]
-  
-  function PlaceData(e){setQueryPlace(e.target.value)}
-  function DaysData(e){setQueryDays(e.target.value)}
-  function GuestsData(e){setQueryGuest(e.target.value)}
-  function queryInfo(){
-   axios.post('/queryInfo', queryData)
-   
+  const { user } = useContext(UserContext);
+  const [queryPlace, setQueryPlace] = useState("");
+  const [queryCheckIN, setQueryCheckIn] = useState("");
+  const [queryCheckOut, setQueryCheckOut] = useState("");
+  const [queryGuests, setQueryGuest] = useState("");
+  const Navigate = useNavigate();
+
+  function queryInfo() {
+    const queryData = {
+      place: queryPlace,
+      CheckIn: queryCheckIN,
+      CheckOut: queryCheckOut,
+      guests: queryGuests,
+    };
+    console.log(typeof queryCheckIN);
+    
+    axios.post("/queryInfo", queryData);
+    Navigate("./QueryPage");
   }
 
   return (
     <header className="flex justify-between py-4 px-20">
-      <Link to={'/'}className="flex items-center gap-1">
+      <Link to={"/"} className="flex items-center gap-1">
         <svg
           className="w-10 h-8"
           enableBackground="new 0 0 1991.3 2143.2"
@@ -37,11 +42,40 @@ export default function Header() {
       </Link>
 
       <div className="flex gap-3 border-gray-400 border rounded-full px-4 py-2 items-center shadow-md ">
-        <input type="text" placeholder="Any where" className="border-l border-gray-400 pl-2" value={queryPlace} onChange={PlaceData}></input>
-        <input type="text" placeholder="Any weeks" className="border-l border-gray-400 pl-2" value={queryDays} onChange={DaysData}></input>
-        <input type="text" placeholder="Add guests" className="border-l border-gray-400 pl-2" value={queryGuests} onChange={GuestsData}></input>
+        <input
+          type="text"
+          placeholder="Any where"
+          className="border-l border-gray-400 pl-2"
+          value={queryPlace}
+          onChange={(e) => setQueryPlace(e.target.value)}
+        ></input>
+        <input
+          type="date"
+          placeholder="Check In"
+          className="border-l border-gray-400 pl-2"
+          value={queryCheckIN}
+          onChange={(e) => setQueryCheckIn(e.target.value)}
+        ></input>
+   
+        <input
+          type="date"
+          placeholder="Check Out"
+          className="border-l border-gray-400 pl-2"
+          value={queryCheckOut}
+          onChange={(e) => setQueryCheckOut(e.target.value)}
+        ></input>
+        <input
+          type="number"
+          placeholder="Add guests"
+          className="border-l border-gray-400 pl-2"
+          value={queryGuests}
+          onChange={(e) => setQueryGuest(e.target.value)}
+        ></input>
 
-        <button className=" p-2 bg-primary text-white rounded-full">
+        <button
+          className=" p-2 bg-primary text-white rounded-full"
+          onClick={queryInfo}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -54,13 +88,15 @@ export default function Header() {
               strokeLinecap="round"
               strokeLinejoin="round"
               d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-             onClick={queryInfo}
             />
           </svg>
         </button>
       </div>
 
-      <Link to={user?'/account' :"/login"} className="flex gap-3 border-gray-400 border rounded-full px-4 py-2 items-center shadow-md ">
+      <Link
+        to={user ? "/account" : "/login"}
+        className="flex gap-3 border-gray-400 border rounded-full px-4 py-2 items-center shadow-md "
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -89,13 +125,7 @@ export default function Header() {
             />
           </svg>
         </div>
-        {
-          !! user && (
-            <div>
-              {user.name}
-            </div>
-          )
-        }
+        {!!user && <div>{user.name}</div>}
       </Link>
     </header>
   );

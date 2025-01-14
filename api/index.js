@@ -13,6 +13,7 @@ const place = require("./models/places");
 const Booking = require("./models/Booking");
 const fs = require("fs");
 const { log } = require("console");
+const PlaceModel = require("./models/places");
 const ObjectId = require('mongoose').Types.ObjectId
 
 const bcryptSalt = bcrypt.genSaltSync(5);
@@ -145,6 +146,7 @@ app.post("/places", (req, res) => {
   const {
     title,
     address,
+    country,
     description,
     addedPhoto,
     checkIn,
@@ -161,6 +163,7 @@ app.post("/places", (req, res) => {
       owner: user.id,
       title,
       address,
+      country,
       photos: addedPhoto,
       description,
       addedPhoto,
@@ -187,6 +190,7 @@ app.put("/places", (req, res) => {
     id,
     title,
     address,
+    country,
     description,
     addedPhoto,
     checkIn,
@@ -196,6 +200,7 @@ app.put("/places", (req, res) => {
     extraInfo,
     price,
   } = req.body;
+  
 
   jwt.verify(token, jwtsecret, {}, async (err, user) => {
     const placeDoc = await place.findById(id);
@@ -203,6 +208,7 @@ app.put("/places", (req, res) => {
       placeDoc.set({
         title,
         address,
+        country,
         photos: addedPhoto,
         description,
         addedPhoto,
@@ -241,16 +247,25 @@ app.post("/booking", async (req, res) => {
   res.json(doc)
 });
 
+
 app.get("/booking", async (req, res) => {
   const userData = await getUserDataFromToken(req);
   res.json(await Booking.find({ user: userData.id }).populate('place'))
 });
 
-// query data is not loging
-app.get('/queryInfo', (res,req)=>{
-  const queryData = req.body
-  console.log(queryData);
+
+let queryData
+// posting query data 
+app.post("/queryInfo", (req,res)=>{
+  queryData = req.body
+})
+
+app.get('/queryInfo',async (req,res)=>{
+  const {place,CheckIn, CheckOut, guests} = queryData
   
+  const queryPlaceResults = await PlaceModel.find({$or:[{country:place},{checkIn:CheckIn},{checkOut:CheckOut},{
+    maxGuests:guests}]})
+  res.json(queryPlaceResults)
 })
 
 app.listen(4000);
