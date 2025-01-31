@@ -9,6 +9,7 @@ export default function Header() {
   const [queryCheckIN, setQueryCheckIn] = useState("");
   const [queryCheckOut, setQueryCheckOut] = useState("");
   const [queryGuests, setQueryGuest] = useState("");
+  const [IsToggle, setToggle] = useState(false);
   const Navigate = useNavigate();
 
   function queryInfo() {
@@ -18,14 +19,100 @@ export default function Header() {
       CheckOut: queryCheckOut,
       guests: queryGuests,
     };
-    
+
     axios.post("/queryInfo", queryData);
     Navigate("./QueryPage");
   }
 
+  function ToggleShowMenu() {
+    !IsToggle
+      ? (document.getElementById("coverpage").classList.remove("hidden"),
+        document.getElementById("close").classList.remove("hidden"),
+        document.getElementById("logo").classList.add("hidden"),
+        document.getElementById("profile_link").classList.add("hidden"),
+        document.getElementById("ham").classList.add("hidden"),
+        setToggle(true))
+      : (document.getElementById("coverpage").classList.add("hidden"),
+        document.getElementById("close").classList.add("hidden"),
+        document.getElementById("logo").classList.remove("hidden"),
+        document.getElementById("profile_link").classList.remove("hidden"),
+        document.getElementById("ham").classList.remove("hidden"),
+        setToggle(false));
+  }
+
   return (
-    <header className="flex justify-between py-4 px-20">
-      <Link to={"/"} className="flex items-center gap-1">
+    <header className="flex justify-between sm:items-center gap-2 m-2">
+      <div id="coverpage"
+        className="hidden absolute bg-white w-full h-full flex flex-col gap-3 left-0 px-2 z-10 "
+      >
+        <span className="text-4xl font-semibold text-gray-700 mt-2">
+          Where to?
+        </span>
+        <input
+          type="text"
+          placeholder="Any where"
+          className="border-l border-gray-400 mb-2"
+          value={queryPlace}
+          onChange={(e) => setQueryPlace(e.target.value)}
+        ></input>
+
+        <span className="text-2xl font-semibold text-gray-700">From when</span>
+
+        <input
+          type="date"
+          placeholder="Check In"
+          className="border-l border-gray-400 pl-2 appearance-none"
+          value={queryCheckIN}
+          onChange={(e) => setQueryCheckIn(e.target.value)}
+        ></input>
+
+        <span className="text-2xl font-semibold text-gray-700">To when</span>
+        <input
+          type="date"
+          placeholder="Check Out"
+          className="appearance-none border-l border-gray-400 pl-2"
+          value={queryCheckOut}
+          onChange={(e) => setQueryCheckOut(e.target.value)}
+        ></input>
+
+        <span className="text-2xl font-semibold text-gray-700">
+          Who's comings
+        </span>
+        <input
+          type="number"
+          placeholder="Add guests"
+          className="border-l border-gray-400 pl-2 appearance-none"
+          value={queryGuests}
+          onChange={(e) => setQueryGuest(e.target.value)}
+        ></input>
+
+        <button
+          className=" p-2 bg-primary text-white rounded-full w-1/3 flex items-center gap-1 justify-center"
+          onClick={queryInfo}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6 pt-1"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            />
+          </svg>
+          search
+        </button>
+      </div>
+
+      <Link
+        id="logo"
+        to={"/"}
+        className="flex items-center justify-evenly gap-2"
+      >
         <svg
           className="w-10 h-8"
           enableBackground="new 0 0 1991.3 2143.2"
@@ -37,14 +124,52 @@ export default function Header() {
             fill="#e0565b"
           />
         </svg>
-        <span className="font-bold text-xl text-primary">AirBNB</span>
+        <span className="max-sm:hidden font-bold text-xl text-primary">AirBNB</span>
       </Link>
 
-      <div className="flex gap-3 border-gray-400 border rounded-full px-4 py-2 items-center shadow-md ">
+      <div className="border border-gray-400 rounded-full px-4 py-2 h-fit text-primary sm:hidden">
+        <svg
+          id="ham"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          onClick={ToggleShowMenu}
+          className="size-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+        <svg
+          id="close"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          onClick={ToggleShowMenu}
+          className="size-6 hidden absolute top-1 left-1"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 18 18 6M6 6l12 12"
+          />
+        </svg>
+      </div>
+
+      <div
+        id="MenuHam"
+        className="max-sm:hidden flex flex-row gap-3 border-gray-400 border rounded-full px-4 py-2 shadow-md  items-center  "
+      >
         <input
           type="text"
           placeholder="Any where"
-          className="border-l border-gray-400 pl-2"
+          className="border-x-4 border-y-0"
           value={queryPlace}
           onChange={(e) => setQueryPlace(e.target.value)}
         ></input>
@@ -55,7 +180,7 @@ export default function Header() {
           value={queryCheckIN}
           onChange={(e) => setQueryCheckIn(e.target.value)}
         ></input>
-   
+
         <input
           type="date"
           placeholder="Check Out"
@@ -93,23 +218,10 @@ export default function Header() {
       </div>
 
       <Link
+        id="profile_link"
         to={user ? "/account" : "/login"}
-        className="flex gap-3 border-gray-400 border rounded-full px-4 py-2 items-center shadow-md "
+        className="h-fit flex gap-3 border-gray-400 border rounded-full px-4 py-2 items-center shadow-md  "
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
-        </svg>
         <div className="bg-gray-500 rounded-full text-white border border-gray-500 overflow-hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"

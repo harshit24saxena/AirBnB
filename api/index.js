@@ -251,6 +251,7 @@ app.post("/booking", async (req, res) => {
 app.get("/booking", async (req, res) => {
   const userData = await getUserDataFromToken(req);
   res.json(await Booking.find({ user: userData.id }).populate('place'))
+  console.log(await Booking.find({ user: userData.id }).populate('place'))
 });
 
 

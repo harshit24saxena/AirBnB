@@ -5,6 +5,7 @@ export default function AccountNavPage(){
     function linkClasses(type=null){
 
         const {pathname} = useLocation();
+        
         let subpage = pathname.split('/')?.[2];
 
         if(subpage === undefined){
@@ -23,10 +24,10 @@ export default function AccountNavPage(){
 
     return(
         <>
-                 <nav className="w-full flex mt-4 gap-4 justify-center">
+                 <nav className="max-sm:flex-col w-full flex mt-4 gap-4 justify-center text-center">
                 <Link className={linkClasses('profile')} to={'/account'}>My Profile</Link>
-                <Link className={linkClasses('booking')}to={'/account/booking'}>My Booking</Link>
-                <Link className={linkClasses('places')}to={'/account/places'}>My Accommodation</Link>
+                <Link className={linkClasses('booking')} to={'/account/booking'}>My Booking</Link>
+                <Link className={linkClasses('places')} to={'/account/places'}>My Accommodation</Link>
             </nav>
         </>
     )

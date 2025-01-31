@@ -21,6 +21,9 @@ export default function PlaceDetailPage() {
   if (!place) {
     return <div>loading</div>;
   }
+
+  const checkIn = new Date(place.checkIn).toISOString().split('T')[0]
+  const checkOut = new Date(place.checkOut).toISOString().split('T')[0]
   
 
   return (
@@ -36,9 +39,9 @@ export default function PlaceDetailPage() {
               <h2 className="font-semibold text-2xl">Description</h2>
               {place.description}
             </div>
-            Check In: {place.checkIn}
+            Check In: {checkIn}
             <br />
-            Check Out: {place.checkOut}
+            Check Out: {checkOut}
             <br />
             Max Guests: {place.maxGuests}
           </div>

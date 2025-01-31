@@ -47,7 +47,7 @@ export default function PlaceGallery(place){
       }
     
 return(
-    <div className=" rounded-3xl overflow-hidden grid gap-2 grid-cols-[2fr_1fr] relative">
+    <div className=" gap-2 rounded-3xl overflow-hidden grid relative grid-cols-1 sm:grid-cols-[2fr_1fr]">
     <div>
       {place.place.photos?.[0] && (
         <div>
@@ -65,7 +65,7 @@ return(
       {place.place.photos?.[1] && (
         <img
           onClick={() => setShowAllPhotos(true)}
-          className="cursor-pointer aspect-square object-cover"
+          className="hidden sm:cursor-pointer aspect-square object-cover"
           src={"http://localhost:4000/uploads/" + place.place.photos[1]}
           alt=""
         />
@@ -74,7 +74,7 @@ return(
         <div className="overflow-hidden">
           <img
             onClick={() => setShowAllPhotos(true)}
-            className="cursor-pointer aspect-square object-cover relative top-2"
+            className="hidden sm:cursor-pointer aspect-square object-cover relative top-2"
             src={"http://localhost:4000/uploads/" + place.place.photos[2]}
             alt=""
           />

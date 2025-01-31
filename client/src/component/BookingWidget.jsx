@@ -44,21 +44,21 @@ export default function BookingWidget(props) {
   }
 
   return (
-    <div className="rounded-2xl shadow p-4 bg-white text-center">
+    <div className="rounded-2xl shadow p-4 bg-white text-center mt-4">
       <div>Price: ${props.place.price}/per night</div>
 
-      <div className="border rounded-2xl mt-4">
-        <div className="flex">
+      <div className="border rounded-2xl">
+        <div className="flex mx-auto w-fit max-sm:flex-col">
           <div className="px-4 py-3 ">
-            <label>Check In: </label>
+            <label>Check In: </label><br />
             <input
               type="date"
               value={checkIn}
               onChange={(ev) => setCheckIn(ev.target.value)}
             />
           </div>
-          <div className="py-3 border-t">
-            <label>Check Out: </label>
+          <div className="px-4 py-3 border-t">
+            <label>Check Out: </label><br />
             <input
               type="date"
               value={checkOut}
@@ -94,7 +94,7 @@ export default function BookingWidget(props) {
       )}
       <button className="primary mt-4" onClick={bookThisPlace}>
         Book this place
-        {NumNight > 0 && <span>${NumNight * props.place.price}</span>}
+        {NumNight > 0 && <span> ${NumNight * props.place.price}</span>}
       </button>
     </div>
   );
