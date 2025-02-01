@@ -251,7 +251,6 @@ app.post("/booking", async (req, res) => {
 app.get("/booking", async (req, res) => {
   const userData = await getUserDataFromToken(req);
   res.json(await Booking.find({ user: userData.id }).populate('place'))
-  console.log(await Booking.find({ user: userData.id }).populate('place'))
 });
 
 
@@ -267,6 +266,11 @@ app.get('/queryInfo',async (req,res)=>{
   const queryPlaceResults = await PlaceModel.find({$or:[{country:place},{checkIn:CheckIn},{checkOut:CheckOut},{
     maxGuests:guests}]})
   res.json(queryPlaceResults)
+})
+
+app.post('/deletBooking' ,async (req, res)=>{
+  let deleteBookingId = req.body.deleteBooking;
+  await Booking.findByIdAndDelete(deleteBookingId)
 })
 
 app.listen(4000);
