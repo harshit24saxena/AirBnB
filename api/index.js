@@ -270,7 +270,8 @@ app.get('/queryInfo',async (req,res)=>{
 
 app.post('/deletBooking' ,async (req, res)=>{
   let deleteBookingId = req.body.deleteBooking;
-  await Booking.findByIdAndDelete(deleteBookingId)
+  if(!await Booking.findByIdAndDelete(deleteBookingId))
+    await place.findByIdAndDelete(deleteBookingId)
 })
 
 app.listen(4000);
