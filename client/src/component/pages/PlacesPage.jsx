@@ -54,10 +54,10 @@ export default function PlacesPage() {
           places.map((place, index) => (
             <Link
               to={"/account/places/" + place._id}
-              className="max-sm:flex-col m-2 bg-gray-100 flex p-4 rounded-2xl gap-4 cursor-pointer"
+              className="max-sm:flex-col m-2 bg-gray-100 flex p-4 rounded-2xl gap-4 cursor-pointe"
               key={index}
             >
-              <div className="w-32 h-32 bg-gray-200 shrink-0 flex">
+              <div className="w-32 h-32 bg-gray-200 flex shrink-0" >
                 {place.photos.length > 0 && (
                   <img
                     src={"http://localhost:4000/uploads/" + place.photos[0]}
@@ -68,7 +68,7 @@ export default function PlacesPage() {
               </div>
               <div className="grow-0 shrink text-left">
                 <h2 className="text-xl">{place.title}</h2>
-                <p className="text-sm mt-2">{place.description}</p>
+                <p className="text-sm mt-2 text-gray-600">{place.description}</p>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
