@@ -8,6 +8,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: process.env.PORT || 5173, // Use the Render port or fallback to 5173
+    host: '0.0.0.0', // Required for Render
+  },
   build:{
     rollupOptions:{
       input:{
