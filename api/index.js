@@ -274,4 +274,4 @@ app.post('/deletBooking' ,async (req, res)=>{
     await place.findByIdAndDelete(deleteBookingId)
 })
 
-app.listen(4000);
+app.listen(process.env.Port || 4000);
