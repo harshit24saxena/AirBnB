@@ -12,6 +12,11 @@ export default defineConfig({
     port: process.env.PORT || 5173, // Use the Render port or fallback to 5173
     host: '0.0.0.0', // Required for Render
   },
+  preview: {
+    port: process.env.PORT || 4173,
+    host: '0.0.0.0',
+    allowedHosts: ['bookit-6is3.onrender.com'], // Add your Render domain
+  },
   build:{
     rollupOptions:{
       input:{
