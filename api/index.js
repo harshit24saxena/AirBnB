@@ -25,7 +25,7 @@ app.use("/uploads", express.static(__dirname + "/uploads/"));
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:5173",
+    origin:"https://airbnb-frontend-l1ej.onrender.com" , "http://localhost:5173",
   })
 );
 
@@ -263,7 +263,7 @@ app.post("/queryInfo", (req,res)=>{
 app.get('/queryInfo',async (req,res)=>{
   const {place,CheckIn, CheckOut, guests} = queryData
   
-  const queryPlaceResults = await PlaceModel.find({$or:[{country:place},{checkIn:CheckIn},{checkOut:CheckOut},{
+  const queryPlaceResults = await PlaceModel.find({$or:[{country:place},{checkIn:new Date(CheckIn)},{checkOut:new Date(CheckOut)},{
     maxGuests:guests}]})
   res.json(queryPlaceResults)
 })
