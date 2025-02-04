@@ -25,7 +25,7 @@ app.use("/uploads", express.static(__dirname + "/uploads/"));
 app.use(
   cors({
     credentials: true,
-    origin:"https://airbnb-frontend-l1ej.onrender.com" , "http://localhost:5173",
+    origin:["https://airbnb-frontend-l1ej.onrender.com" , "http://localhost:5173"]
   })
 );
 
