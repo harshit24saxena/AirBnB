@@ -12,7 +12,7 @@ export default function IndexPage() {
     });
   }, []);
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:gird-cols-3 lg:grid-cols-4 mt-8 gap-x-6 gap-y-8 bg-black">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:gird-cols-3 lg:grid-cols-4 mt-8 gap-x-6 gap-y-8 bg">
       {places.length > 0 &&
         places.map((place,index) => (
           <Link to={'/place/'+place._id} key={index}>
