@@ -12,25 +12,29 @@ const User = require("./models/user");
 const place = require("./models/places");
 const Booking = require("./models/Booking");
 const fs = require("fs");
-const { log } = require("console");
 const PlaceModel = require("./models/places");
-const ObjectId = require('mongoose').Types.ObjectId
+const { request } = require("http");
+const path = require('path');
 
 const bcryptSalt = bcrypt.genSaltSync(5);
 const jwtsecret = process.env.jwt;
+const URL = process.env.vite_frontend_url
+const uploadDir = path.join(__dirname,'uploads')
 
 app.use(express.json());
 app.use(cookieParser());
-app.use("/uploads", express.static(__dirname + "/uploads/"));
+app.use("/uploads", express.static(uploadDir));
 app.use(
   cors({
     credentials: true,
-    origin:["https://airbnb-frontend-l1ej.onrender.com" , "http://localhost:5173"]
+    origin:[process.env.vite_frontend_url , "http://localhost:5173"]
   })
 );
 
 function getUserDataFromToken(req) {
   return new Promise((resolve, reject) => {
+    if(!req.cookies.token)
+    {return reject("No token found")}
     jwt.verify(req.cookies.token, jwtsecret, {}, (err, user) => {
       if (err) throw err;
       resolve(user);
