@@ -14,7 +14,7 @@ import BookingsPage from './component/pages/BookingsPage.jsx'
 import BookingPage from './component/pages/BookingPage.jsx'
 import QueryPage from './component/pages/QueryPage.jsx'
 
-axios.defaults.baseURL='https://airbnb-backend-fwxz.onrender.com/api'
+axios.defaults.baseURL= 'https://airbnb-backend-fwxz.onrender.com ' ||'http://localhost:4000'
 axios.defaults.withCredentials = true
 
 function App() {
