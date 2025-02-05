@@ -19,7 +19,7 @@ export default function IndexPage() {
             <div className="bg-gray-400 rounded-2xl">
               {place.photos?.[0] && (
                 <img
-                  src={place.photos[0]}
+                  src={`${import.meta.env.VITE_BACKEND_URL}/{place.photos[0]}`}
                   alt=""
                   className="rounded-2xl aspect-square object-cover w-full mb-2"
                 />
