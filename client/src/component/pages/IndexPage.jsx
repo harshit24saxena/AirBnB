@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 export default function IndexPage() {
+
   const [places, setPlaces] = useState([]);
   useEffect(() => {
     axios.get("/places").then((res) => {
@@ -19,7 +21,8 @@ export default function IndexPage() {
             <div className="bg-gray-400 rounded-2xl">
               {place.photos?.[0] && (
                 <img
-                  src={`${import.meta.env.VITE_BACKEND_URL}/{place.photos[0]}`}
+                  src=
+                    {"http://localhost:4000/uploads/"  + place.photos[0]}
                   alt=""
                   className="rounded-2xl aspect-square object-cover w-full mb-2"
                 />

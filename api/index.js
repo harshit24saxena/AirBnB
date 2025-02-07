@@ -108,7 +108,7 @@ app.post("/logout", (req, res) => {
 
 app.post("/uploadbylink", async (req, res) => {
   const { URL } = req.body;
-  const path = __dirname + "/uploads/";
+  const path = uploadDir + "/uploads/";
   
   const newName = "photo" + Date.now() + ".jpg";
 
