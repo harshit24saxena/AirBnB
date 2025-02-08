@@ -20,7 +20,7 @@ export default function BookingsPage() {
   return (
     <div>
       <AccountNavPage />
-      <div className="items-center">
+      <div>
         {booking?.length > 0 &&
           booking.map((bk) => (
             <Link
@@ -28,16 +28,16 @@ export default function BookingsPage() {
               to={`/account/booking/${bk._id}`}
               className="max-sm:flex-col p-4 flex gap-4 bg-gray-200 rounded-2xl overflow-hidden mt-4 items-center"
             >
-              <div className="w-48">
+              <div className="w-48 shrink-0">
                 {bk.place.photos.length > 0 && (
                   <img
                     src={"http://localhost:4000/uploads/" + bk.place.photos[0]}
                     alt=""
-                    className="object-cover"
+                    className="object-cover aspect-square"
                   />
                 )}
               </div>
-              <BookingDate bk={bk} className={"text-1"}></BookingDate>
+              <BookingDate bk={bk}></BookingDate>
               <div className="flex justify-center items-center">
                 <div className="text-1 bg-primary my-auto mr-2 py-6 px-2 text-white rounded-2xl">
                   Total price : ${bk.price}

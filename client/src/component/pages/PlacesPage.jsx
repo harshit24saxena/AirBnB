@@ -54,21 +54,21 @@ export default function PlacesPage() {
           places.map((place, index) => (
             <Link
               to={"/account/places/" + place._id}
-              className="max-sm:flex-col m-2 bg-gray-100 flex p-4 rounded-2xl gap-4 cursor-pointer items-center"
+              className="max-sm:flex-col m-2 bg-gray-100 flex p-4 rounded-2xl gap-4 cursor-pointer items-center relative"
               key={index}
             >
-              <div className="w-32 h-32 bg-gray-200 flex shrink-0 " >
+              <div className="w-32 bg-gray-200 flex shrink-0 " >
                 {place.photos.length > 0 && (
                   <img
                     src= {"http://localhost:4000/uploads/"  + place.photos[0]}
                     alt=""
-                    className="object-cover"
+                    className="object-cover aspect-square"
                   />
                 )}
               </div>
               <div className="grow-0 shrink text-left">
                 <h2 className="text-xl">{place.title}</h2>
-                <p className="text-sm mt-2 text-gray-600">{place.description}</p>
+                <p className="text-sm mt-2 text-gray-600 h-16 overflow-hidden">{place.description}</p>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@ export default function PlacesPage() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-8 bg-white border rounded-lg "
+                className="size-8 bg-white border rounded-lg shrink-0 absolute right-2  sm:bottom-2"
                 data-id={place._id}
                 onClick={(e) => forDeleteBooking(e)}
               >

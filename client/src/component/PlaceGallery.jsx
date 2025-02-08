@@ -8,10 +8,10 @@ export default function PlaceGallery(place){
           <div className="absolute inset-0 bg-black text-white min-h-screen">
             <div className="bg-black p-8 grid gap-4">
               <div>
-                <h2 className="text-2xl font-bold mr-48">Photos of {place.place.title}</h2>
+                <h2 className="text-2xl font-bold ml-4">Photos of {place.place.title}</h2>
                 <button
                   onClick={() => setShowAllPhotos(false)}
-                  className="fixed right-12 top-8 rounded-2xl bg-red-600 text-white shadow shadow-black"
+                  className="fixed left-4 top-9 rounded-2xl bg-red-600 text-white shadow shadow-black"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ export default function PlaceGallery(place){
               {place.place?.photos?.length > 0 &&
                 place.place.photos.map((photo, index) => (
                   <div key={index}>
-                    <img className="object-cover"
+                    <img className="object-cover m-4"
                       onClick={() => setShowAllPhotos(true)}
                       src={"http://localhost:4000/uploads/" + photo}
                       ></img>

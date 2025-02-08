@@ -41,8 +41,9 @@ export default function Header() {
   }
 
   return (
-    <header className="flex justify-between sm:items-center gap-2 m-2">
-      <div id="coverpage"
+    <header className="flex justify-between sm:items-center gap-2 m-2 ">
+      <div
+        id="coverpage"
         className="hidden absolute bg-white w-full h-full flex flex-col gap-3 left-0 px-2 z-10 "
       >
         <span className="text-4xl font-semibold text-gray-700 mt-2">
@@ -124,10 +125,12 @@ export default function Header() {
             fill="#e0565b"
           />
         </svg>
-        <span className="max-sm:hidden font-bold text-xl text-primary">AirBNB</span>
+        <span className="max-sm:hidden font-bold text-xl text-primary">
+          AirBNB
+        </span>
       </Link>
 
-      <div className="border border-gray-400 rounded-full px-4 py-2 h-fit text-primary sm:hidden">
+      <div className="border border-gray-400 rounded-full px-4 py-2 h-fit text-primary shadow-md sm:hidden">
         <svg
           id="ham"
           xmlns="http://www.w3.org/2000/svg"
@@ -135,15 +138,16 @@ export default function Header() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          onClick={ToggleShowMenu}
           className="size-6"
+          onClick={ToggleShowMenu}
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
           />
         </svg>
+
         <svg
           id="close"
           xmlns="http://www.w3.org/2000/svg"
