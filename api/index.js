@@ -278,4 +278,7 @@ app.post('/deletBooking' ,async (req, res)=>{
     await place.findByIdAndDelete(deleteBookingId)
 })
 
-app.listen(process.env.Port || 4000);
+app.listen(process.env.Port || 4000){
+  console.log("NODE_ENV" +  process.env.NODE_ENV);
+  
+};
