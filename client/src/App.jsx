@@ -14,9 +14,8 @@ import BookingsPage from './component/pages/BookingsPage.jsx'
 import BookingPage from './component/pages/BookingPage.jsx'
 import QueryPage from './component/pages/QueryPage.jsx'
 
-axios.defaults.baseURL= import.meta.NODE_ENV === "production"
-?import.meta.VITE_BACKEND_URL
-:"http://localhost:4000"
+axios.defaults.baseURL= import.meta.VITE_BACKEND_URL
+
 axios.defaults.withCredentials = true
 
 function App() {

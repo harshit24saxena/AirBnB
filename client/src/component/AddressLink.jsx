@@ -6,7 +6,7 @@ export default function AddressLink({children, className}){
     if(!className){
         className= 'gap-1 my-3 block'
     }
-    className= className + 'underline font-semibold flex'
+    className= className + 'underline font-semibold flex text-gray-700'
     return(  
         <a
             className={className}

@@ -37,7 +37,7 @@ export default function PlaceDetailPage() {
           <div>
             <div className="my-4">
               <h2 className="font-semibold text-2xl">Description</h2>
-              {place.description}
+              <p className="text-gray-700">{place.description}</p>
             </div>
             Check In: {checkIn}
             <br />
