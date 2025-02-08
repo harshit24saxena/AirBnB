@@ -27,7 +27,7 @@ app.use("/uploads", express.static(uploadDir));
 app.use(
   cors({
     credentials: true,
-    origin:["http://localhost:5173"]
+    origin:[process.env.VITE_FRONTEND_URL]
   })
 );
 
