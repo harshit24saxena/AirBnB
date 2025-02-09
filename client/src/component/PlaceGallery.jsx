@@ -36,7 +36,7 @@ export default function PlaceGallery(place){
                   <div key={index}>
                     <img className="object-cover m-4"
                       onClick={() => setShowAllPhotos(true)}
-                      src={"http://localhost:4000/uploads/" + photo}
+                      src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + photo}
                       ></img>
                   </div>
                 ))}

@@ -31,7 +31,7 @@ export default function BookingsPage() {
               <div className="w-48 shrink-0">
                 {bk.place.photos.length > 0 && (
                   <img
-                    src={"http://localhost:4000/uploads/" + bk.place.photos[0]}
+                    src={import.meta.env.VITE_BACKEND_URL + "/uploads/" + bk.place.photos[0]}
                     alt=""
                     className="object-cover aspect-square"
                   />

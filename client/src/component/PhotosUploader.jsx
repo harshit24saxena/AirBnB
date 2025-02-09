@@ -66,7 +66,7 @@ export default function PhotoUploader(props) {
             <div key={index} className="h-32 flex relative">
               <img
                 className="rounded-2xl object-cover w-full"
-                src={"http://localhost:4000/uploads/" + e}
+                src={import.meta.env.VITE_BACKEND_URL + "/uploads/" + e}
                 alt=""
               />
               <button

@@ -60,7 +60,7 @@ export default function PlacesPage() {
               <div className="w-32 bg-gray-200 flex shrink-0 " >
                 {place.photos.length > 0 && (
                   <img
-                    src= {"http://localhost:4000/uploads/"  + place.photos[0]}
+                    src= {import.meta.env.VITE_BACKEND_URL+"/uploads/"  + place.photos[0]}
                     alt=""
                     className="object-cover aspect-square"
                   />
