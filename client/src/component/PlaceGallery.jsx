@@ -54,7 +54,7 @@ return(
           <img
             onClick={() => setShowAllPhotos(true)}
             className="cursor-pointer aspect-square object-cover"
-            src={"http://localhost:4000/uploads/" + place.place.photos[0]}
+            src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[0]}
             alt=""
           />
         </div>
@@ -66,7 +66,7 @@ return(
         <img
           onClick={() => setShowAllPhotos(true)}
           className="hidden sm:cursor-pointer aspect-square object-cover"
-          src={"http://localhost:4000/uploads/" + place.place.photos[1]}
+          src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[1]}
           alt=""
         />
       )}
@@ -75,7 +75,7 @@ return(
           <img
             onClick={() => setShowAllPhotos(true)}
             className="hidden sm:cursor-pointer aspect-square object-cover relative top-2"
-            src={"http://localhost:4000/uploads/" + place.place.photos[2]}
+            src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[2]}
             alt=""
           />
         </div>
