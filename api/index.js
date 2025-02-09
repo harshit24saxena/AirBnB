@@ -26,8 +26,9 @@ app.use(cookieParser());
 app.use("/uploads", express.static(uploadDir));
 app.use(
   cors({
+    origin:[process.env.VITE_FRONTEND_URL ],
+    methods: 'GET,POST,PUT,DELETE',
     credentials: true,
-    origin:[process.env.VITE_FRONTEND_URL]
   })
 );
 
