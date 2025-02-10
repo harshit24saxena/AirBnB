@@ -9,10 +9,6 @@ export default function IndexPage() {
       setPlaces(res.data);
     });
   }, []);
-
-  useEffect(()=>{
-    console.log("is places an array " + Array.isArray(places));
-  }, [places])
   
 
   return (

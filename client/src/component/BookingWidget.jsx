@@ -35,6 +35,7 @@ export default function BookingWidget(props) {
       price: NumNight * props.place.price,
       place: props.place._id, 
     });
+     
     const bookingId = response.data._id;
     setRedirect(`/account/booking/${bookingId}`);
   }

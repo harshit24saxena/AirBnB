@@ -19,13 +19,14 @@ const bcryptSalt = bcrypt.genSaltSync(5);
 const jwtsecret = process.env.jwt;
 const URL = process.env.VITE_FRONTEND_URL
 const uploadDir = path.join(__dirname,'uploads')
+console.log(uploadDir);
 
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(uploadDir));
 app.use(
   cors({
-    origin:process.env.VITE_FRONTEND_URL ,
+    origin:"http://localhost:5173",
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
   })
@@ -112,7 +113,7 @@ app.post("/logout", (req, res) => {
 
 app.post("/uploadbylink", async (req, res) => {
   const { URL } = req.body;
-  const path = uploadDir + "/uploads/";
+  const path = uploadDir;
   
   const newName = "photo" + Date.now() + ".jpg";
 
@@ -126,6 +127,7 @@ app.post("/uploadbylink", async (req, res) => {
     console.log(e);
   }
 });
+
 const photosMiddleware = multer({ dest: "uploads/" });
 app.post("/uploads", photosMiddleware.array("photos", 100), (req, res) => {
   const uploadedfiles = [];
