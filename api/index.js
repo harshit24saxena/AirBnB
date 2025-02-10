@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use("/uploads", express.static(uploadDir));
 app.use(
   cors({
-    origin:"http://localhost:5173",
+    origin:URL ,
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
   })
@@ -113,16 +113,17 @@ app.post("/logout", (req, res) => {
 
 app.post("/uploadbylink", async (req, res) => {
   const { URL } = req.body;
-  const path = uploadDir;
+  
+  const path = uploadDir + `/` ;
   
   const newName = "photo" + Date.now() + ".jpg";
-
+  console.log(path + newName);
   try {
     await imgDownload.image({
       url: URL,
-      dest: path + newName,
+      dest: path + newName,  
     });
-    res.json(newName);
+   res.json(newName);
   } catch (e) {
     console.log(e);
   }
