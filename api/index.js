@@ -13,12 +13,11 @@ const place = require("./models/places");
 const Booking = require("./models/Booking");
 const fs = require("fs");
 const PlaceModel = require("./models/places");
-const { request } = require("http");
 const path = require('path');
 
 const bcryptSalt = bcrypt.genSaltSync(5);
 const jwtsecret = process.env.jwt;
-const URL = process.env.vite_frontend_url
+const URL = process.env.VITE_FRONTEND_URL
 const uploadDir = path.join(__dirname,'uploads')
 
 app.use(express.json());
@@ -79,7 +78,11 @@ app.post("/login", async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err;
-          res.cookie("token", token).json(Doc);
+          res.cookie("token", token, {
+            httpOnly: true,   // ✅ Prevent JavaScript access
+            secure: true,     // ✅ Required for `SameSite=None`
+            sameSite: 'None', 
+          }).json(Doc);
         }
       );
     } else {
