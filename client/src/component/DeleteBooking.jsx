@@ -10,7 +10,7 @@ import axios from "axios";
   }
 
 
-export default function DeleteBooking({bk}){
+export default function DeleteBooking({props}){
 return(
     <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@ return(
     strokeWidth={1.5}
     stroke="currentColor"
     className="size-8 bg-white border rounded-lg  "
-    data-id={bk._id}
+    data-id={props._id}
     onClick={(e)=>forDeleteBooking(e)}
   >
     <path
