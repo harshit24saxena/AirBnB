@@ -19,8 +19,6 @@ const bcryptSalt = bcrypt.genSaltSync(5);
 const jwtsecret = process.env.jwt;
 const URL = process.env.VITE_FRONTEND_URL
 const uploadDir = path.join(__dirname,'uploads')
-console.log(uploadDir);
-
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(uploadDir));
@@ -117,7 +115,6 @@ app.post("/uploadbylink", async (req, res) => {
   const path = uploadDir + `/` ;
   
   const newName = "photo" + Date.now() + ".jpg";
-  console.log(path + newName);
   try {
     await imgDownload.image({
       url: URL,
@@ -129,16 +126,18 @@ app.post("/uploadbylink", async (req, res) => {
   }
 });
 
-const photosMiddleware = multer({ dest:__dirname + '/uploads'});
+const photosMiddleware = multer({ dest:"/uploads"});
 app.post("/uploads", photosMiddleware.array("photos", 100), (req, res) => {
   const uploadedfiles = [];
   for (let i = 0; i < req.files.length; i++) {
-    const { path, originalname } = req.files[i];
+    const { path, originalname } = req.files[i];  
     const parts = originalname.split(".");
     const ext = parts[parts.length - 1];
-    const newPath = path + "." + ext;
+    const newPath = path +"." + ext;
+    console.log(newPath);
+    
     fs.renameSync(path, newPath);
-    uploadedfiles.push(newPath.replace("uploads\\", ""));
+    console.log(uploadedfiles.push(newPath.replace("uploads\\", "")));
   }
   res.json(uploadedfiles);
 });
