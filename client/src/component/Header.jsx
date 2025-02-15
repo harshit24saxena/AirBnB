@@ -12,6 +12,7 @@ export default function Header() {
   const [IsToggle, setToggle] = useState(false);
   const Navigate = useNavigate();
 
+
   function queryInfo() {
     const queryData = {
       place: queryPlace,
@@ -41,7 +42,7 @@ export default function Header() {
   }
 
   return (
-    <header className="flex justify-between sm:items-center gap-2 m-2 ">
+    <header className="flex justify-between sm:items-center gap-2 m-2 sm:flex-wrap lg:flex-nowrap">
       <div
         id="coverpage"
         className="hidden absolute bg-white w-full h-full flex flex-col gap-3 left-0 px-2 z-10 "
@@ -130,7 +131,7 @@ export default function Header() {
         </span>
       </Link>
 
-      <div className="border border-gray-400 rounded-full px-4 py-2 h-fit text-primary shadow-md sm:hidden">
+      <div className="border border-gray-400 rounded-full px-4 py-2 h-fit text-primary shadow-md sm:hidden ">
         <svg
           id="ham"
           xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +169,7 @@ export default function Header() {
 
       <div
         id="MenuHam"
-        className="max-sm:hidden flex flex-row gap-3 border-gray-400 border rounded-full px-4 py-2 shadow-md  items-center  "
+        className="max-sm:hidden sm:order-last lg:order-none flex flex-row gap-3 border-gray-400 border rounded-full px-4 py-2 shadow-md  items-center  "
       >
         <input
           type="text"
@@ -180,15 +181,15 @@ export default function Header() {
         <input
           type="date"
           placeholder="Check In"
-          className="border-l border-gray-400 pl-2"
+          className="border-l border-gray-400 pl-2 min-w-10 cursor-pointer"
           value={queryCheckIN}
           onChange={(e) => setQueryCheckIn(e.target.value)}
         ></input>
 
         <input
-          type="date"
+          type="date"  
           placeholder="Check Out"
-          className="border-l border-gray-400 pl-2"
+          className="border-l border-gray-400 pl-2 min-w-10 cursor-pointer"
           value={queryCheckOut}
           onChange={(e) => setQueryCheckOut(e.target.value)}
         ></input>
@@ -221,6 +222,7 @@ export default function Header() {
         </button>
       </div>
 
+
       <Link
         id="profile_link"
         to={user ? "/account" : "/login"}
@@ -242,6 +244,9 @@ export default function Header() {
         </div>
         {!!user && <div>{user.name}</div>}
       </Link>
+
+ 
+ 
     </header>
   );
 }

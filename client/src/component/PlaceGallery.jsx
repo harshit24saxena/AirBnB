@@ -47,13 +47,13 @@ export default function PlaceGallery(place){
       }
     
 return(
-    <div className=" gap-2 rounded-3xl overflow-hidden grid relative grid-cols-1 sm:grid-cols-[2fr_1fr]">
+    <div className=" gap-2 rounded-3xl overflow-hidden grid relative grid-cols-1 max-h-[1100px] sm:grid-cols-[2fr_1fr] ">
     <div>
       {place.place.photos?.[0] && (
         <div>
           <img
             onClick={() => setShowAllPhotos(true)}
-            className="cursor-pointer aspect-square object-cover"
+            className="cursor-pointer aspect-square object-cover "
             src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[0]}
             alt=""
           />
@@ -65,7 +65,7 @@ return(
       {place.place.photos?.[1] && (
         <img
           onClick={() => setShowAllPhotos(true)}
-          className="hidden sm:cursor-pointer aspect-square object-cover"
+          className="max-sm:hidden cursor-pointer aspect-square object-cover"
           src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[1]}
           alt=""
         />
@@ -74,7 +74,7 @@ return(
         <div className="overflow-hidden">
           <img
             onClick={() => setShowAllPhotos(true)}
-            className="hidden sm:cursor-pointer aspect-square object-cover relative top-2"
+            className="max-sm:hidden cursor-pointer aspect-square object-cover relative top-2"
             src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[2]}
             alt=""
           />

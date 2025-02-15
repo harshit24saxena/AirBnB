@@ -5,6 +5,10 @@
 input[type="password"],input[type="email"],input[type="text"], textarea,input[type="number"], input[type="tel"], input[type ="date"] {
     @apply w-full border my-1 py-2 px-2 rounded-2xl
 }
+input[type = "date"]::-webkit-datetime-edit{
+  opacity: .5;
+  flex: 1;
+}
 textarea{
     height: 140px
 }
