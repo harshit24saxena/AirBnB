@@ -127,7 +127,7 @@ export default function Header() {
           />
         </svg>
         <span className="max-sm:hidden font-bold text-xl text-primary">
-          AirBNB
+          BookIt
         </span>
       </Link>
 
