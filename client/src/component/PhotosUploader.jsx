@@ -79,7 +79,7 @@ export default function PhotoUploader(props) {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6 max-sm:size-3"
+                  className="size-6 max-sm:size-4"
                 >
                   <path
                     strokeLinecap="round"
@@ -97,7 +97,7 @@ export default function PhotoUploader(props) {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="size-6 max-sm:size-3"
+                    className="size-6 max-sm:size-4"
                   >
                     <path
                       fillRule="evenodd"
@@ -113,7 +113,7 @@ export default function PhotoUploader(props) {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="size-6 max-sm:size-3"
+                    className="size-6 max-sm:size-4"
                   >
                     <path
                       strokeLinecap="round"
