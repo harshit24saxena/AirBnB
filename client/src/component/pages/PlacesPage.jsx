@@ -62,13 +62,13 @@ export default function PlacesPage() {
                   <img
                     src= {import.meta.env.VITE_BACKEND_URL+"/uploads/"  + place.photos[0]}
                     alt=""
-                    className="object-cover aspect-square"
+                    className="object-cover aspect-square rounded-md"
                   />
                 )}
               </div>
               <div className="grow-0 shrink text-left">
                 <h2 className="text-xl">{place.title}</h2>
-                <p className="text-sm mt-2 text-gray-600 h-16 overflow-hidden">{place.description}</p>
+                <p className="text-sm mt-2 text-gray-600 h-16 overflow-hidden">{place.description} ... </p>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

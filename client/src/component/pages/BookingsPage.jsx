@@ -26,24 +26,24 @@ export default function BookingsPage() {
             <Link
               key={bk._id}
               to={`/account/booking/${bk._id}`}
-              className="max-sm:flex-col p-4 flex gap-4 bg-gray-200 rounded-2xl overflow-hidden mt-4 items-center"
+              className="max-sm:flex-col p-4 flex gap-2 bg-gray-200 rounded-2xl overflow-hidden mt-4 items-center"
             >
-              <div className="w-48 shrink-0">
+              <div className="w-32 shrink-0">
                 {bk.place.photos.length > 0 && (
                   <img
                     src={import.meta.env.VITE_BACKEND_URL + "/uploads/" + bk.place.photos[0]}
                     alt=""
-                    className="object-cover aspect-square"
+                    className="object-cover aspect-square rounded-md"
                   />
                 )}
               </div>
               <BookingDate bk={bk}></BookingDate>
-              <div className="flex justify-center items-center">
-                <div className="text-1 bg-primary my-auto mr-2 py-6 px-2 text-white rounded-2xl">
+               
+                <div className="text-1 bg-primary my-auto mr-2 py-6 px-2 text-white rounded-2xl shrink-0 flex justify-center items-center gap-2">
                   Total price : ${bk.price}
+                   <DeleteBooking bk={bk} />
                 </div>
-                <DeleteBooking bk={bk} />
-              </div>
+              
             </Link>
           ))}
       </div>

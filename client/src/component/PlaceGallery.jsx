@@ -6,7 +6,7 @@ export default function PlaceGallery(place){
     if (showAllPhotos) {
         return (
           <div className="absolute inset-0 bg-black text-white min-h-screen">
-            <div className="bg-black p-8 grid gap-4">
+            <div className="bg-black p-8 ">
               <div>
                 <h2 className="text-2xl font-bold ml-4">Photos of {place.place.title}</h2>
                 <button
@@ -29,12 +29,12 @@ export default function PlaceGallery(place){
                   </svg>
                 </button>
               </div>
-              <div className="w-4/5 m-auto ">
 
+              <div className=" max-sm:gap-1 grid gap-4 lg:grid-cols-2 mt-4">
               {place.place?.photos?.length > 0 &&
                 place.place.photos.map((photo, index) => (
                   <div key={index}>
-                    <img className="object-cover m-4"
+                    <img className="object-cover aspect-square"
                       onClick={() => setShowAllPhotos(true)}
                       src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + photo}
                       ></img>
@@ -47,7 +47,7 @@ export default function PlaceGallery(place){
       }
     
 return(
-    <div className=" gap-2 rounded-3xl overflow-hidden grid relative grid-cols-1 max-h-[1100px] sm:grid-cols-[2fr_1fr] ">
+    <div className=" gap-2 rounded-3xl overflow-hidden grid relative grid-cols-1 max-h-[1100px] sm:grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr_1fr] ">
     <div>
       {place.place.photos?.[0] && (
         <div>
@@ -61,11 +61,11 @@ return(
       )}
     </div>
 
-    <div className="grid2">
+    <div className="grid2 max-sm:hidden">
       {place.place.photos?.[1] && (
         <img
           onClick={() => setShowAllPhotos(true)}
-          className="max-sm:hidden cursor-pointer aspect-square object-cover"
+          className=" cursor-pointer aspect-square object-cover"
           src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[1]}
           alt=""
         />
@@ -74,8 +74,31 @@ return(
         <div className="overflow-hidden">
           <img
             onClick={() => setShowAllPhotos(true)}
-            className="max-sm:hidden cursor-pointer aspect-square object-cover relative top-2"
+            className="cursor-pointer aspect-square object-cover relative top-2"
             src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[2]}
+            alt=""
+          />
+        </div>
+      )}
+    </div>
+
+    <div className="grid3 max-lg:hidden">
+    {place.place.photos?.[3] && (
+        <div className="overflow-hidden">
+          <img
+            onClick={() => setShowAllPhotos(true)}
+            className="max-sm:hidden cursor-pointer aspect-square object-cover"
+            src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[3]}
+            alt=""
+          />
+        </div>
+      )}
+      {place.place.photos?.[4] && (
+        <div className="overflow-hidden">
+          <img
+            onClick={() => setShowAllPhotos(true)}
+            className="max-sm:hidden cursor-pointer aspect-square object-cover relative top-2"
+            src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[4]}
             alt=""
           />
         </div>

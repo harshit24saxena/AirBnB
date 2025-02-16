@@ -131,7 +131,10 @@ export default function Header() {
         </span>
       </Link>
 
-      <div className="border border-gray-400 rounded-full px-4 py-2 h-fit text-primary shadow-md sm:hidden ">
+      <div 
+      onClick={ToggleShowMenu}
+      className="border border-gray-400 rounded-full px-4 py-2 h-fit text-primary shadow-md sm:hidden flex w-full justify-center items-center gap-3 ">
+        <span className="text-[17px]">Search</span> 
         <svg
           id="ham"
           xmlns="http://www.w3.org/2000/svg"
@@ -139,8 +142,7 @@ export default function Header() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="size-6"
-          onClick={ToggleShowMenu}
+          className="size-5"
         >
           <path
             strokeLinecap="round"
@@ -169,7 +171,7 @@ export default function Header() {
 
       <div
         id="MenuHam"
-        className="max-sm:hidden sm:order-last lg:order-none flex flex-row gap-3 border-gray-400 border rounded-full px-4 py-2 shadow-md  items-center  "
+        className="max-sm:hidden sm:mx-auto sm:order-last lg:order-none flex flex-row gap-3 border-gray-400 border rounded-full px-4 py-2 shadow-md  items-center  "
       >
         <input
           type="text"

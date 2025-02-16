@@ -13,7 +13,6 @@ import PlaceDetailPage from './component/pages/PlaceDetailPage.jsx';
 import BookingsPage from './component/pages/BookingsPage.jsx'
 import BookingPage from './component/pages/BookingPage.jsx'
 import QueryPage from './component/pages/QueryPage.jsx'
-
 axios.defaults.baseURL=import.meta.env.VITE_BACKEND_URL
 axios.defaults.withCredentials = true
 

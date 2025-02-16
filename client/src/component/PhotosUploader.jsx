@@ -60,10 +60,10 @@ export default function PhotoUploader(props) {
         </button>
       </div>
 
-      <div className="mt-2 grid grid-cols-3 lg:grid-cols-6 md:grid-cols-4 text-gray-400 gap-1">
+      <div className="mt-2 grid grid-cols-2 min-[500px]:grid-cols-3 lg:grid-cols-6 md:grid-cols-4 text-gray-400 gap-1">
         {addedPhoto.length > 0 &&
           addedPhoto.map((e, index) => (
-            <div key={index} className="h-32 flex relative">
+            <div key={index} className="h-24 min-[375]:h-32 flex relative">
               <img
                 className="rounded-2xl object-cover w-full"
                 src={import.meta.env.VITE_BACKEND_URL + "/uploads/" + e}
@@ -79,7 +79,7 @@ export default function PhotoUploader(props) {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
+                  className="size-6 max-sm:size-3"
                 >
                   <path
                     strokeLinecap="round"
@@ -97,7 +97,7 @@ export default function PhotoUploader(props) {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="size-6"
+                    className="size-6 max-sm:size-3"
                   >
                     <path
                       fillRule="evenodd"
@@ -113,7 +113,7 @@ export default function PhotoUploader(props) {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="size-6"
+                    className="size-6 max-sm:size-3"
                   >
                     <path
                       strokeLinecap="round"

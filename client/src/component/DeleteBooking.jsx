@@ -18,7 +18,7 @@ return(
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="size-8 bg-white border rounded-lg  "
+    className="size-8  border-l-2 h-12 ml-2 shrink-0 "
     data-id={bk._id}
     onClick={(e)=>forDeleteBooking(e)}
   >
