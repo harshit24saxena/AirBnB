@@ -12,16 +12,13 @@ export default function PlacesFormPage() {
   const [country, setCountry] = useState("");
   const [description, setDecription] = useState("");
   const [extraInfo, setExtraInfo] = useState("");
-  const [checkIn, setCheckIn] = useState("2024-5-24");
-  const [checkOut, setCheckOut] = useState("2024-5-25");
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
   const [perks, setPerks] = useState([]);
   const [addedPhoto, setAddedPhotos] = useState([]);
   const [price, setPrice] = useState(100);
   const [redirect, setRedirect] = useState(false);
-
-  const formattedCheckIn = new Date(checkIn).toISOString().split('T')[0]
-  const formattedCheckOut = new Date(checkOut).toISOString().split('T')[0]
 
   useEffect(() => {
     if (!id) {
@@ -43,6 +40,8 @@ export default function PlacesFormPage() {
     });
   }, [id]);
 
+
+
   function inputHeader(title) {
     return <h2 className="text-2xl mt-4">{title}</h2>;
   }
@@ -57,6 +56,10 @@ export default function PlacesFormPage() {
       </>
     );
   }
+
+  const FormattedCheckInDate = checkIn?new Date(checkIn).toISOString().split('T')[0]:'';
+  const FormattedCheckOutDate = checkOut?new Date(checkOut).toISOString().split("T")[0]:'';
+  
 
   async function savePlace(ev) {
     ev.preventDefault();
@@ -73,6 +76,8 @@ export default function PlacesFormPage() {
       maxGuests,
       price,
     };
+    console.log(placeData);
+    
     if (id) {
       // update
       await axios.put("/places", { id, ...placeData });
@@ -112,7 +117,7 @@ export default function PlacesFormPage() {
           type="text"
           placeholder="country"
           value={country}
-          onChange={(ev) => setCountry(ev.target.value)}
+          onChange={(ev) => setCountry(ev.target.value.toUpperCase())}
         />
 
         {preInput("Places", "Show this places with photos")}
@@ -142,7 +147,7 @@ export default function PlacesFormPage() {
             <h3 className=" mt-2 -mb-1">Check In time</h3>
             <input
               type="date"
-              value={formattedCheckIn}
+              value={FormattedCheckInDate}
               onChange={(ev) => setCheckIn(ev.target.value)}
             />
           </div>
@@ -150,7 +155,7 @@ export default function PlacesFormPage() {
             <h3 className=" mt-2 -mb-1">Check out time</h3>
             <input
               type="date"
-              value={formattedCheckOut}
+              value={FormattedCheckOutDate}
               onChange={(ev) => setCheckOut(ev.target.value)}
             />
           </div>

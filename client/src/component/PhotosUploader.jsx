@@ -2,10 +2,12 @@
 import { useState } from "react";
 import axios from "axios";
 
+
 export default function PhotoUploader(props) {
   const onChange = props.onChange;
   const addedPhoto = props.addedPhoto;
   const [photoLink, setPhotoLink] = useState("");
+  // const [photoUploadByLinkUrl, setURL] = useState('')
 
   async function addPhoto(ev) {
     ev.preventDefault();
@@ -16,6 +18,7 @@ export default function PhotoUploader(props) {
       return [...prev, filename];
     });
     setPhotoLink("");
+  
   }
   function uploadPhoto(e) {
     const files = e.target.files;
@@ -34,6 +37,8 @@ export default function PhotoUploader(props) {
         });
       });
   }
+
+
   function removePhoto(filename, ev) {
     ev.preventDefault();
     onChange([...addedPhoto.filter((Photo) => Photo !== filename)]);
@@ -63,7 +68,7 @@ export default function PhotoUploader(props) {
       <div className="mt-2 grid grid-cols-2 min-[500px]:grid-cols-3 lg:grid-cols-6 md:grid-cols-4 text-gray-400 gap-1">
         {addedPhoto.length > 0 &&
           addedPhoto.map((e, index) => (
-            <div key={index} className="h-24 min-[375]:h-32 flex relative">
+            <div key={index} className="h-24 min-[37px5]:h-32 flex relative">
               <img
                 className="rounded-2xl object-cover w-full"
                 src={import.meta.env.VITE_BACKEND_URL + "/uploads/" + e}

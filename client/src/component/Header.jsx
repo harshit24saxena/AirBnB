@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../useContest";
 import axios from "axios";
@@ -11,16 +11,15 @@ export default function Header() {
   const [queryGuests, setQueryGuest] = useState("");
   const [IsToggle, setToggle] = useState(false);
   const Navigate = useNavigate();
-
-
   function queryInfo() {
+    const CapitalizePlace = queryPlace.toUpperCase(); 
     const queryData = {
-      place: queryPlace,
-      CheckIn: queryCheckIN,
-      CheckOut: queryCheckOut,
-      guests: queryGuests,
+      CapitalizePlace,
+      queryCheckIN,
+      queryCheckOut,
+      queryGuests,
     };
-
+    
     axios.post("/queryInfo", queryData);
     Navigate("./QueryPage");
   }
@@ -41,7 +40,7 @@ export default function Header() {
         setToggle(false));
   }
 
-  return (
+  return(
     <header className="flex justify-between sm:items-center gap-2 m-2 sm:flex-wrap lg:flex-nowrap">
       <div
         id="coverpage"
@@ -78,7 +77,7 @@ export default function Header() {
         ></input>
 
         <span className="text-2xl font-semibold text-gray-700">
-          Who's comings
+          Who comings
         </span>
         <input
           type="number"

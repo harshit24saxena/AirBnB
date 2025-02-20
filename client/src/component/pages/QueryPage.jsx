@@ -5,9 +5,14 @@ export default function QueryData(){
     const[queryList, setQueryList] = useState('')
 
     useEffect(()=>{
+      try {
         axios.get('/queryInfo').then(res=>{
-            setQueryList(res.data)      
+          setQueryList(res.data);  
         })
+      } catch (error) {
+        console.log('error in get request for queryData '+error);
+      }
+       
     },[])
 
     return(
@@ -18,7 +23,7 @@ export default function QueryData(){
                <div className="bg-gray-400 rounded-2xl">
                  {place.photos?.[0] && (
                    <img
-                     src={"http://localhost:4000/uploads/" + place.photos?.[0]}
+                     src= ''
                      alt=""
                      className="rounded-2xl aspect-square object-cove mb-2"
                    />

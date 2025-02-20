@@ -13,27 +13,28 @@ const place = require("./models/places");
 const Booking = require("./models/Booking");
 const fs = require("fs");
 const PlaceModel = require("./models/places");
-const path = require('path');
+const path = require("path");
 
 const bcryptSalt = bcrypt.genSaltSync(5);
 const jwtsecret = process.env.jwt;
-const URL = process.env.VITE_FRONTEND_URL
-const uploadDir = path.join(__dirname,'uploads')
+const URL = process.env.VITE_FRONTEND_URL;
+const uploadDir = path.join(__dirname, "uploads");
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(uploadDir));
 app.use(
   cors({
-    origin:URL ,
-    methods: 'GET,POST,PUT,DELETE',
+    origin: "http://localhost:5173",
+    methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
 );
 
 function getUserDataFromToken(req) {
   return new Promise((resolve, reject) => {
-    if(!req.cookies.token)
-    {return reject("No token found")}
+    if (!req.cookies.token) {
+      return reject("No token found");
+    }
     jwt.verify(req.cookies.token, jwtsecret, {}, (err, user) => {
       if (err) throw err;
       resolve(user);
@@ -61,7 +62,7 @@ app.post("/register", async (req, res) => {
 // Handling Post of LoginPage`
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  
+
   const Doc = await User.findOne({ email });
 
   if (Doc) {
@@ -165,6 +166,8 @@ app.post("/places", (req, res) => {
     price,
   } = req.body;
 
+  const formattedCheckIn = new Date();
+
   jwt.verify(token, jwtsecret, {}, async (err, user) => {
     if (err) throw err;
     const placeDoc = await place.create({
@@ -208,7 +211,6 @@ app.put("/places", (req, res) => {
     extraInfo,
     price,
   } = req.body;
-  
 
   jwt.verify(token, jwtsecret, {}, async (err, user) => {
     const placeDoc = await place.findById(id);
@@ -239,7 +241,7 @@ app.get("/places", async (req, res) => {
 
 app.post("/booking", async (req, res) => {
   const userData = await getUserDataFromToken(req);
-  const user = userData.id 
+  const user = userData.id;
 
   const { place, name, checkIn, checkOut, guests, phone, price } = req.body;
   const doc = await Booking.create({
@@ -251,35 +253,45 @@ app.post("/booking", async (req, res) => {
     phone,
     price,
     user,
-  })
-  res.json(doc)
+  });
+  res.json(doc);
 });
-
 
 app.get("/booking", async (req, res) => {
   const userData = await getUserDataFromToken(req);
-  res.json(await Booking.find({ user: userData.id }).populate('place'))
+  res.json(await Booking.find({ user: userData.id }).populate("place"));
 });
 
-
-let queryData
-// posting query data 
-app.post("/queryInfo", (req,res)=>{
+let queryData;
+// posting query data
+app.post("/queryInfo", (req, res) => {
   queryData = req.body
-})
-
-app.get('/queryInfo',async (req,res)=>{
-  const {place,CheckIn, CheckOut, guests} = queryData
+  res.json(queryData)
+});    
+app.get("/queryInfo", async (req, res) => {
+  if(!queryData)
+   return res.status(400) , console.log("no data found");
   
-  const queryPlaceResults = await PlaceModel.find({$or:[{country:place},{checkIn:new Date(CheckIn)},{checkOut:new Date(CheckOut)},{
-    maxGuests:guests}]})
-  res.json(queryPlaceResults)
-})
+  const checkIn = queryData. queryCheckIN  
+  const checkOut = queryData. queryCheckOut
+  const guests = queryData. queryGuests
+  const parsedDateCheckIn = checkIn && !isNaN(new Date(checkIn).getTime())?new Date(checkIn): null
+  const parsedDateCheckOut = checkOut && !isNaN(new Date(checkOut).getTime())?new Date(checkOut):null
+  const parsedGuests = guests?Number(guests): null
 
-app.post('/deletBooking' ,async (req, res)=>{
+  const query = {$and: [{country : queryData.CapitalizePlace}]};
+  if(parsedDateCheckIn) query.$and.push({checkIn: parsedDateCheckIn})
+  if(parsedDateCheckOut) query.$and.push({checkOut: parsedDateCheckOut})
+  if(parsedGuests) query.$and.push({maxGuests: parsedGuests})
+
+  const queryPlaceResults = await PlaceModel.find(query);
+  res.json(queryPlaceResults);
+});
+
+app.post("/deletBooking", async (req, res) => {
   let deleteBookingId = req.body.deleteBooking;
-  if(!await Booking.findByIdAndDelete(deleteBookingId))
-    await place.findByIdAndDelete(deleteBookingId)
-})
+  if (!(await Booking.findByIdAndDelete(deleteBookingId)))
+    await place.findByIdAndDelete(deleteBookingId);
+});
 
 app.listen(process.env.Port || 4000);
