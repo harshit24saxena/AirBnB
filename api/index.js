@@ -13,6 +13,7 @@ const place = require("./models/places");
 const Booking = require("./models/Booking");
 const fs = require("fs");
 const PlaceModel = require("./models/places");
+const cloudinary = require('cloudinary').v2;
 const path = require("path");
 
 const bcryptSalt = bcrypt.genSaltSync(5);
@@ -29,6 +30,11 @@ app.use(
     credentials: true,
   })
 );
+cloudinary.config({ 
+  cloud_name: process.env.cloudinary_name, 
+  api_key: process.env.cloudinary_key, 
+  api_secret:process.env.cloudinary_secret,
+});
 
 function getUserDataFromToken(req) {
   return new Promise((resolve, reject) => {
@@ -112,19 +118,17 @@ app.post("/logout", (req, res) => {
 
 app.post("/uploadbylink", async (req, res) => {
   const { URL } = req.body;
-  
-  const path = uploadDir + `/` ;
-  
-  const newName = "photo" + Date.now() + ".jpg";
   try {
-    await imgDownload.image({
-      url: URL,
-      dest: path + newName,  
-    });
-   res.json(newName);
+    const result = await cloudinary.uploader
+    .upload(URL, {
+      resource_type: 'image'
+    })
+    return res.json({image_URL: result.secure_url})
   } catch (e) {
     console.log(e);
+    return res.status('500')
   }
+
 });
 
 const photosMiddleware = multer({ dest:uploadDir});

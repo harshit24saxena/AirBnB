@@ -7,7 +7,8 @@ export default function PhotoUploader(props) {
   const onChange = props.onChange;
   const addedPhoto = props.addedPhoto;
   const [photoLink, setPhotoLink] = useState("");
-  // const [photoUploadByLinkUrl, setURL] = useState('')
+  const [photoUploadByLinkUrl, setURL] = useState([])
+
 
   async function addPhoto(ev) {
     ev.preventDefault();
@@ -15,27 +16,38 @@ export default function PhotoUploader(props) {
       URL: photoLink,
     });
     onChange((prev) => {
-      return [...prev, filename];
+      return [...prev, filename.image_URL];
+      
     });
     setPhotoLink("");
-  
+    const URL_array =[]
+    URL_array.append(filename.image_URL)
+    console.log(URL_array);
+    
+    setURL(URL_array)
+    console.log(photoUploadByLinkUrl);
+    
   }
   function uploadPhoto(e) {
     const files = e.target.files;
+    console.log(files,'this is file');
     const data = new FormData();
+    console.log(data,'this is data');
+    
     for (let i = 0; i < files.length; i++) {
       data.append("photos", files[i]);
     }
-    axios
-      .post("/uploads", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((res) => {
-        const { data: filenames } = res;
-        onChange((prev) => {
-          return [...prev, ...filenames];
-        });
+    axios.post("/uploads", data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+    .then((res) => {
+      const { data: filenames } = res;
+      onChange((prev) => {
+        console.log([...prev, ...filenames], 'this is response from /uploads');
+        
+        return [...prev, ...filenames];
       });
+    });
   }
 
 
@@ -71,7 +83,7 @@ export default function PhotoUploader(props) {
             <div key={index} className="h-24 min-[37px5]:h-32 flex relative">
               <img
                 className="rounded-2xl object-cover w-full"
-                src={import.meta.env.VITE_BACKEND_URL + "/uploads/" + e}
+                src={photoUploadByLinkUrl}
                 alt=""
               />
               <button
