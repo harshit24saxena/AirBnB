@@ -31,10 +31,10 @@ export default function BookingPage() {
       <div className="max-sm:flex-col max-sm:items-center flex item-center bg-gray-200 p-4 mb-4 rounded-2xl">
         <BookingDate bk={booking} />
         <div className="flex justify-center items-center">
-          <div className="text-1 bg-primary mr-2 py-8 px-2 text-white rounded-2xl size-fit my-auto">
+          <div className="text-1 bg-primary mr-2 py-8 px-2 text-white rounded-2xl size-fit my-auto flex items-center">
             Total price : ${booking.price}
-          </div>
           <DeleteBooking bk={booking} />
+          </div>   
         </div>
       </div>
       <PlaceGallery place={booking.place} />
