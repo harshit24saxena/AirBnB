@@ -76,7 +76,6 @@ export default function PlacesFormPage() {
       maxGuests,
       price,
     };
-    console.log(placeData);
     
     if (id) {
       // update

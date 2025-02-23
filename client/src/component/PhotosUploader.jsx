@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import {  useState } from "react";
 import axios from "axios";
 
 
@@ -7,8 +7,6 @@ export default function PhotoUploader(props) {
   const onChange = props.onChange;
   const addedPhoto = props.addedPhoto;
   const [photoLink, setPhotoLink] = useState("");
-  const [photoUploadByLinkUrl, setURL] = useState([])
-
 
   async function addPhoto(ev) {
     ev.preventDefault();
@@ -20,31 +18,24 @@ export default function PhotoUploader(props) {
       
     });
     setPhotoLink("");
-    const URL_array =[]
-    URL_array.append(filename.image_URL)
-    console.log(URL_array);
-    
-    setURL(URL_array)
-    console.log(photoUploadByLinkUrl);
-    
+
   }
+
+
   function uploadPhoto(e) {
     const files = e.target.files;
-    console.log(files,'this is file');
     const data = new FormData();
-    console.log(data,'this is data');
+  
     
     for (let i = 0; i < files.length; i++) {
-      data.append("photos", files[i]);
+      data.append("photos", files[i]); 
     }
     axios.post("/uploads", data, {
       headers: { "Content-Type": "multipart/form-data" },
-    })
+        })
     .then((res) => {
       const { data: filenames } = res;
       onChange((prev) => {
-        console.log([...prev, ...filenames], 'this is response from /uploads');
-        
         return [...prev, ...filenames];
       });
     });
@@ -83,7 +74,7 @@ export default function PhotoUploader(props) {
             <div key={index} className="h-24 min-[37px5]:h-32 flex relative">
               <img
                 className="rounded-2xl object-cover w-full"
-                src={photoUploadByLinkUrl}
+                src={e} //src for images
                 alt=""
               />
               <button
@@ -148,7 +139,7 @@ export default function PhotoUploader(props) {
             type="file"
             multiple
             className="hidden w-0"
-            onChange={uploadPhoto}
+            onChange={uploadPhoto} // local function to upload photo
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"

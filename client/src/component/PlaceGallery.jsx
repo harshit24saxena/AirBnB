@@ -36,7 +36,7 @@ export default function PlaceGallery(place){
                   <div key={index}>
                     <img className="object-cover aspect-square"
                       onClick={() => setShowAllPhotos(true)}
-                      src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + photo}
+                      src={photo}
                       ></img>
                   </div>
                 ))}
@@ -54,7 +54,7 @@ return(
           <img
             onClick={() => setShowAllPhotos(true)}
             className="cursor-pointer aspect-square object-cover "
-            src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[0]}
+            src={place.place.photos[0]}
             alt=""
           />
         </div>
@@ -66,7 +66,7 @@ return(
         <img
           onClick={() => setShowAllPhotos(true)}
           className=" cursor-pointer aspect-square object-cover"
-          src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[1]}
+          src={place.place.photos[1]}
           alt=""
         />
       )}
@@ -75,7 +75,7 @@ return(
           <img
             onClick={() => setShowAllPhotos(true)}
             className="cursor-pointer aspect-square object-cover relative top-2"
-            src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[2]}
+            src={place.place.photos[2]}
             alt=""
           />
         </div>
@@ -88,7 +88,7 @@ return(
           <img
             onClick={() => setShowAllPhotos(true)}
             className="max-sm:hidden cursor-pointer aspect-square object-cover"
-            src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[3]}
+            src={ place.place.photos[3]}
             alt=""
           />
         </div>
@@ -98,7 +98,7 @@ return(
           <img
             onClick={() => setShowAllPhotos(true)}
             className="max-sm:hidden cursor-pointer aspect-square object-cover relative top-2"
-            src={import.meta.env.VITE_BACKEND_URL+"/uploads/" + place.place.photos[4]}
+            src={place.place.photos[4]}
             alt=""
           />
         </div>

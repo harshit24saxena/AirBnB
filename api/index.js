@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use("/uploads", express.static(uploadDir));
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: URL,
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
@@ -132,17 +132,18 @@ app.post("/uploadbylink", async (req, res) => {
 });
 
 const photosMiddleware = multer({ dest:uploadDir});
-app.post("/uploads", photosMiddleware.array("photos", 100), (req, res) => {
-  const uploadedfiles = [];
-  for (let i = 0; i < req.files.length; i++) {
-    const { path:filePath , originalname } = req.files[i];  
-    const parts = originalname.split(".");
-    const ext = parts[parts.length - 1];
-    const newPath = filePath  +"." + ext;
-    fs.renameSync(filePath, newPath);
-    uploadedfiles.push(path.basename(newPath));
-  }
-  res.json(uploadedfiles);
+app.post("/uploads", photosMiddleware.array("photos", 100), async (req, res) => {
+
+  const uploadPromise = req.files.map(async(file)=>{
+    const result =await cloudinary.uploader
+    .upload(file.path, {
+      resource_type: 'image'
+    })
+    return(result.secure_url)
+  })
+
+  const uploadPhotoUrl = await Promise.all(uploadPromise)
+  res.json(uploadPhotoUrl)
 });
 
 app.get("/Userplaces", (req, res) => {
