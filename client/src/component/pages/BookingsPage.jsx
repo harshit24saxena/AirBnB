@@ -39,7 +39,7 @@ export default function BookingsPage() {
               </div>
               <BookingDate bk={bk}></BookingDate>
                
-                <div className="text-1 bg-primary my-auto mr-2 py-6 px-2 text-white rounded-2xl shrink-0 flex justify-center items-center gap-2">
+                <div className="max-sm:w-full text-1 bg-primary my-auto mx-3 py-6 px-2 text-white rounded-2xl shrink-0 flex justify-center items-center gap-2">
                   Total price : ${bk.price}
                    <DeleteBooking bk={bk} />
                 </div>
