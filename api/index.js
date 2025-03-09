@@ -15,6 +15,7 @@ const fs = require("fs");
 const PlaceModel = require("./models/places");
 const cloudinary = require('cloudinary').v2;
 const path = require("path");
+const { json } = require("stream/consumers");
 
 const bcryptSalt = bcrypt.genSaltSync(5);
 const jwtsecret = process.env.jwt;
@@ -264,7 +265,16 @@ app.post("/booking", async (req, res) => {
 
 app.get("/booking", async (req, res) => {
   const userData = await getUserDataFromToken(req);
-  res.json(await Booking.find({ user: userData.id }).populate("place"));
+  const bookingArrayData = await Booking.find({ user: userData.id }).populate("place");
+  let bookingPlaceData =[];
+  for(const bkplace of bookingArrayData){ 
+   if(bkplace.place){
+    bookingPlaceData.push(bkplace)
+    }else{
+      const placeNul = Booking.findByIdAndDelete({_id : bkplace._id}).then(res => console.log('deletion complete'))
+    }
+  }
+  res.json(bookingArrayData)
 });
 
 let queryData;
@@ -293,10 +303,18 @@ app.get("/queryInfo", async (req, res) => {
   res.json(queryPlaceResults);
 });
 
-app.post("/deletBooking", async (req, res) => {
-  let deleteBookingId = req.body.deleteBooking;
-  if (!(await Booking.findByIdAndDelete(deleteBookingId)))
-    await place.findByIdAndDelete(deleteBookingId);
+app.post("/deleteBooking", async (req, res) => {
+  const deleteBookingId = req.body.deleteBooking;
+  const deleteBookineWithNULLPlace = deleteBookingId.toString()
+
+  const responseDataBooking = await Booking.findById(deleteBookingId)
+  if(responseDataBooking == null){
+    await Booking.findOneAndDelete({place : deleteBookineWithNULLPlace})
+    await place.findByIdAndDelete(deleteBookingId)
+  }else{
+    await Booking.findByIdAndDelete(deleteBookingId)
+  } 
+   res.json('response send from deleteBooking')
 });
 
 app.listen(process.env.Port || 4000);

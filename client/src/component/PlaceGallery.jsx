@@ -30,7 +30,7 @@ export default function PlaceGallery(place){
                 </button>
               </div>
 
-              <div className=" max-sm:gap-1 grid gap-4 lg:grid-cols-2 mt-4">
+              <div className=" max-sm:gap-1 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {place.place?.photos?.length > 0 &&
                 place.place.photos.map((photo, index) => (
                   <div key={index}>
@@ -53,7 +53,7 @@ return(
         <div>
           <img
             onClick={() => setShowAllPhotos(true)}
-            className="cursor-pointer aspect-square object-cover "
+            className="w-full cursor-pointer aspect-square object-cover "
             src={place.place.photos[0]}
             alt=""
           />

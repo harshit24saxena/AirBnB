@@ -1,17 +1,24 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
+async function forDeleteBooking(e) {
+  e.preventDefault()
+  const deleteBooking = e.target.dataset.id; 
+  try{
+    await axios.post("/deleteBooking", {deleteBooking}).then((res)=>console.log(res,+'res from /deleteBooking'))
+    if(window.location.pathname == '/account/booking' || window.location.pathname == '/account/places'){
+      window.location.reload()      
+    }else{
+      window.location.href='/account/booking'
+    }
+  }catch(err){
+    console.log(err,'failed to post resquest to /deleteBooking');
+  }     
+} 
 
-  async function forDeleteBooking(e) {
-    const deleteBooking = e.target.dataset.id;  
-    axios.post("/deletBooking", {deleteBooking}).then((res) => console.log(res))
-    {e.preventDefault()}
-    window.location.reload()
-    window.location.href = '/account/booking'
-  }
 
 
 export default function DeleteBooking({bk}){
-return(
+  return(
     <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

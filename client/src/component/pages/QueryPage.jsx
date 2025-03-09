@@ -23,7 +23,7 @@ export default function QueryData(){
                <div className="bg-gray-400 rounded-2xl">
                  {place.photos?.[0] && (
                    <img
-                     src= ''
+                     src= {place.photos[0]}
                      alt=""
                      className="rounded-2xl aspect-square object-cove mb-2"
                    />

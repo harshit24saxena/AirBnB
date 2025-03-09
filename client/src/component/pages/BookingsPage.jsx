@@ -9,19 +9,23 @@ import DeleteBooking from "../DeleteBooking";
 
 export default function BookingsPage() {
   const [booking, setBooking] = useState([]);
-
+  
   useEffect(() => {
     axios.get("/booking").then((res) => {
       const bookedPlace = res.data;
       setBooking(bookedPlace);
-    });
+    }); 
   }, []);
+booking?'':console.log('no booking found');
+
+
+  
 
   return (
     <div>
       <AccountNavPage />
       <div>
-        {booking?.length > 0 &&
+        { booking?booking?.length > 0 &&
           booking.map((bk) => (
             <Link
               key={bk._id}
@@ -45,7 +49,7 @@ export default function BookingsPage() {
                 </div>
               
             </Link>
-          ))}
+          )):<div>No Booking <Link to={'/'}>Try Booking</Link></div> }
       </div>
     </div>
   );
