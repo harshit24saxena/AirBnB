@@ -6,16 +6,14 @@ const multer = require("multer");
 const app = express();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const imgDownload = require("image-downloader");
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const place = require("./models/places");
 const Booking = require("./models/Booking");
-const fs = require("fs");
 const PlaceModel = require("./models/places");
 const cloudinary = require('cloudinary').v2;
 const path = require("path");
-const { json } = require("stream/consumers");
+
 
 const bcryptSalt = bcrypt.genSaltSync(5);
 const jwtsecret = process.env.jwt;
@@ -50,6 +48,10 @@ function getUserDataFromToken(req) {
 }
 
 mongoose.connect(process.env.mongo_URL);
+
+app.get('/',(req, res)=>{
+  res.json('response to avoid inactivity')
+})
 
 // Handling Post of RegisterPage
 app.post("/register", async (req, res) => {
