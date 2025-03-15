@@ -9,6 +9,14 @@ export default function IndexPage() {
       setPlaces(res.data);
     });
   }, []);
+
+  setInterval(serverActivityCheck, 6000)
+
+function serverActivityCheck(){
+  if(places.length == 0)
+    axios.get('/').then(()=> console.log('to keep server active'));
+}
+  
   
 
   return (
