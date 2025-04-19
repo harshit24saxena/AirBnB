@@ -8,15 +8,7 @@ export default function IndexPage() {
     axios.get("/places").then((res) => {
       setPlaces(res.data);
     });
-  }, []);
-
-  setInterval(serverActivityCheck, 6000)
-
-function serverActivityCheck(){
-  if(places.length == 0)
-    axios.get('/').then(()=> console.log('to keep server active'));
-}
-  
+  }, []);  
   
 
   return (
