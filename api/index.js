@@ -49,6 +49,11 @@ function getUserDataFromToken(req) {
 
 mongoose.connect(process.env.mongo_URL);
 
+app.get('/',(req, res)=>{
+res.send('okay')
+console.log('this is uptime reminder')
+})
+
 // Handling Post of RegisterPage
 app.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
